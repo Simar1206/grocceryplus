@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "276253281552",
+    "project_id": "grocceryplus",
+    "storage_bucket": "grocceryplus.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276253281552:android:5d0f584edd474cd855a995",
+        "android_client_info": {
+          "package_name": "com.example.grocceryplus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkqhiOvV5OCi7yozEugEXH3zlkpSTmlcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
