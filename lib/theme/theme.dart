@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-ThemeData apptheme = ThemeData(
+final ThemeData apptheme = ThemeData(
   textTheme: const TextTheme(
     displayLarge: TextStyle(
       // splash
