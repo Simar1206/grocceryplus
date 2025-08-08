@@ -4,8 +4,9 @@ import 'package:get/get.dart';
 import 'package:grocceryplus/firebase/repository.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/action_button_widget.dart';
+import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
 import 'package:grocceryplus/widgets/signin_widget.dart';
-import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -17,12 +18,28 @@ class LoginPage extends StatefulWidget {
 class _LoginPage extends State<LoginPage> {
   final Repository repo = Repository();
 
+  //*bool obj for remeber me
+  bool rememberMe = false;
+
+  //function to loadCredentials
+  void LoadRemeberMeCredential() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? savedEmail = prefs.getString('saved_email');
+    String? savedPassword = prefs.getString('saved_password');
+    bool? savedrememberMe = prefs.getBool('saved_rememberMe') ?? false;
+
+    if (savedrememberMe) {
+      setState(() {
+        rememberMe = true;
+        _emailController.text = savedEmail ?? '';
+      });
+    }
+  }
+
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
 
   bool isVisble = false;
-
-  final _currentUser = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -30,6 +47,8 @@ class _LoginPage extends State<LoginPage> {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    //*init the loadrememberMe function
+    LoadRemeberMeCredential();
   }
 
   @override
@@ -47,13 +66,16 @@ class _LoginPage extends State<LoginPage> {
 
       bottomSheet: ActionButtonWidget(
         onPress: () async {
+          SharedPreferences pref = await SharedPreferences.getInstance();
           if (_emailController.text.isNotEmpty &&
               _passwordController.text.isNotEmpty) {
+            Get.dialog(ProgressIndicatorWidget(), barrierDismissible: false);
             try {
               final result = await repo.Login(
-                email: _emailController.text,
-                password: _passwordController.text,
+                email: _emailController.text.trim(),
+                password: _passwordController.text.trim(),
               );
+              Get.back();
 
               if (result.FirebaseResult) {
                 Get.snackbar(
@@ -61,6 +83,22 @@ class _LoginPage extends State<LoginPage> {
                   'User Authenticated Successfully',
                 );
                 Get.toNamed('/home_page');
+                //*added the logic
+                if (rememberMe) {
+                  await pref.setBool('saved_rememberMe', true);
+                  await pref.setString(
+                    'saved_password',
+                    _passwordController.text ?? '',
+                  );
+                  await pref.setString(
+                    'saved_email',
+                    _emailController.text ?? '',
+                  );
+                } else {
+                  await pref.remove('saved_password');
+                  await pref.remove('saved_email');
+                  await pref.setBool('saved_rememberMe', false);
+                }
               } else {
                 Get.snackbar('Logic Unsuccessful', 'try again later');
               }
@@ -78,9 +116,10 @@ class _LoginPage extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.start,
 
           children: [
-            LottieBuilder.network(
-              'https://lottie.host/6800f629-4b0a-4256-89c2-70a7aedcbbd1/Wjk5CLxQno.json',
-            ),
+            Image.asset('assets/images/mobilepic.png'),
+            // LottieBuilder.network(
+            //   'https://lottie.host/6800f629-4b0a-4256-89c2-70a7aedcbbd1/Wjk5CLxQno.json',
+            // ),
             Container(
               padding: EdgeInsets.all(15),
               child: Column(
@@ -141,7 +180,49 @@ class _LoginPage extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 10),
+
+                  //*forgot pass:
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //*RemeberME logic:
+                      Row(
+                        children: [
+                          Checkbox(
+                            activeColor: ConstColor.AccentColor,
+                            checkColor: ConstColor.WhiteColor,
+                            value: rememberMe,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                rememberMe = value ?? false;
+                              });
+                            },
+                          ),
+                          Text('Remember Me'),
+                        ],
+                      ),
+                      //*forgot pass
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/forgot_pass_main_screen',
+                          );
+                        },
+                        child: Text(
+                          "Forgot Password ?",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: ConstColor.AccentColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20),
 
                   //* divider
                   //divider
@@ -169,11 +250,41 @@ class _LoginPage extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
 
                     children: [
-                      SigninWidget(url: "assets/images/googleicon.png"),
+                      SigninWidget(
+                        url: "assets/images/googleicon.png",
+                        onPress: () async {
+                          try {
+                            final result = await repo.SignInWithGoogle();
+                            if (result.FirebaseResult) {
+                              Get.snackbar(
+                                'Authnetication Successful',
+                                'Google sign in was successful',
+                              );
+                            } else {
+                              Get.snackbar('Authnetication Failed', '');
+                            }
+                          } catch (e) {
+                            Get.snackbar(
+                              'Error',
+                              'Failed to sign in with Google',
+                            );
+                          }
+                        },
+                      ),
                       SizedBox(width: 20),
-                      SigninWidget(url: "assets/images/appleicon.png"),
+                      SigninWidget(
+                        url: "assets/images/appleicon.png",
+                        onPress: () {
+                          print('called apple');
+                        },
+                      ),
                       SizedBox(width: 20),
-                      SigninWidget(url: "assets/images/facebookicon.png"),
+                      SigninWidget(
+                        url: "assets/images/facebookicon.png",
+                        onPress: () {
+                          print('called facebook');
+                        },
+                      ),
                       SizedBox(width: 20),
                     ],
                   ),

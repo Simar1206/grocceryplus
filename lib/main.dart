@@ -2,13 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocceryplus/Screens/home/homepage.dart';
+import 'package:grocceryplus/auth/ForgotPassword/forgot_pass_main_screen.dart';
+
 import 'package:grocceryplus/auth/login/login_page.dart';
-import 'package:grocceryplus/auth/login/otp_input_screen.dart';
-import 'package:grocceryplus/auth/login/otp_verfication_screen.dart';
 import 'package:grocceryplus/auth/registration/register_page.dart';
 
 import 'package:grocceryplus/firebase_options.dart';
-import 'package:grocceryplus/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +28,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/register_page': (context) => RegisterPage(),
         '/login_page': (context) => LoginPage(),
-        '/home_page' : (context) => Homepage(),
+        '/home_page': (context) => Homepage(),
+        '/forgot_pass_main_screen': (context) => ForgotPassMainScreen(),
 
         // '/otp_input_screen': (context) => OtpInputScreen(),
         // '/otp_verfication_screen': (context) {

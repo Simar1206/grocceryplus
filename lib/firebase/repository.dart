@@ -1,6 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grocceryplus/firebase/helper.dart';
 
@@ -192,6 +190,16 @@ class Repository extends Helper {
         FirebaseResult: false,
         Message: 'Unexpected error: ${e.toString()}',
       );
+    }
+  }
+
+  Future<void> Passreset({required String email}) async {
+  
+    try {
+      
+      await auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw Exception('Something Wrong Occured, try again later: ${FirebaseHelper(e)}');
     }
   }
 
