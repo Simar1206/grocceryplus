@@ -9,7 +9,7 @@ import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
 import 'package:grocceryplus/widgets/signin_widget.dart';
 
 class ForgotPassMainScreen extends StatefulWidget {
-  ForgotPassMainScreen({super.key});
+  const ForgotPassMainScreen({super.key});
 
   @override
   State<ForgotPassMainScreen> createState() => _ForgotPassMainScreenState();

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocceryplus/Screens/home/homepage.dart';
+import 'package:grocceryplus/Screens/navigation/select_location_page.dart';
 import 'package:grocceryplus/auth/ForgotPassword/forgot_pass_main_screen.dart';
 
 import 'package:grocceryplus/auth/login/login_page.dart';
@@ -23,13 +24,15 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: Homepage(),
 
       routes: {
-        '/register_page': (context) => RegisterPage(),
-        '/login_page': (context) => LoginPage(),
-        '/home_page': (context) => Homepage(),
-        '/forgot_pass_main_screen': (context) => ForgotPassMainScreen(),
+        '/register_page': (context) => const RegisterPage(),
+        '/login_page': (context) => const LoginPage(),
+        '/home_page': (context) => const Homepage(),
+        '/forgot_pass_main_screen': (context) => const ForgotPassMainScreen(),
+
+        '/select_location': (context) => const SelectLocationPage(),
 
         // '/otp_input_screen': (context) => OtpInputScreen(),
         // '/otp_verfication_screen': (context) {

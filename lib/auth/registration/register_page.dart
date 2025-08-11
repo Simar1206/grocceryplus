@@ -6,7 +6,6 @@ import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/action_button_widget.dart';
 import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
 import 'package:grocceryplus/widgets/signin_widget.dart';
-import 'package:lottie/lottie.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

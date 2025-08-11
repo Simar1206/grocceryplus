@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SigninWidget extends StatelessWidget {
   final VoidCallback onPress;
   final String url;
-  SigninWidget({super.key, required this.url, required this.onPress});
+  const SigninWidget({super.key, required this.url, required this.onPress});
 
   @override
   Widget build(BuildContext context) {

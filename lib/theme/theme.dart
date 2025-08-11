@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/theme/const_color.dart';
 
 final ThemeData apptheme = ThemeData(
+  scaffoldBackgroundColor: ConstColor.ScaffoldBackgroundColor,
   textTheme: const TextTheme(
     displayLarge: TextStyle(
       // splash

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocceryplus/firebase/repository.dart';
@@ -24,13 +23,16 @@ class _LoginPage extends State<LoginPage> {
   //function to loadCredentials
   void LoadRemeberMeCredential() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     String? savedEmail = prefs.getString('saved_email');
     String? savedPassword = prefs.getString('saved_password');
+
     bool? savedrememberMe = prefs.getBool('saved_rememberMe') ?? false;
 
     if (savedrememberMe) {
       setState(() {
         rememberMe = true;
+        _passwordController.text = savedPassword ?? '';
         _emailController.text = savedEmail ?? '';
       });
     }
@@ -67,6 +69,7 @@ class _LoginPage extends State<LoginPage> {
       bottomSheet: ActionButtonWidget(
         onPress: () async {
           SharedPreferences pref = await SharedPreferences.getInstance();
+
           if (_emailController.text.isNotEmpty &&
               _passwordController.text.isNotEmpty) {
             Get.dialog(ProgressIndicatorWidget(), barrierDismissible: false);
@@ -88,12 +91,9 @@ class _LoginPage extends State<LoginPage> {
                   await pref.setBool('saved_rememberMe', true);
                   await pref.setString(
                     'saved_password',
-                    _passwordController.text ?? '',
+                    _passwordController.text,
                   );
-                  await pref.setString(
-                    'saved_email',
-                    _emailController.text ?? '',
-                  );
+                  await pref.setString('saved_email', _emailController.text);
                 } else {
                   await pref.remove('saved_password');
                   await pref.remove('saved_email');
@@ -142,6 +142,7 @@ class _LoginPage extends State<LoginPage> {
                     hintText: 'Email Address',
                     icon: null,
                   ),
+
                   const SizedBox(height: 28),
 
                   Text(
@@ -170,7 +171,7 @@ class _LoginPage extends State<LoginPage> {
                       filled: true,
                       fillColor: ConstColor.TextfieldBackground,
 
-                      hint: Text('Password'),
+                      hint: const Text('Password'),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -210,7 +211,7 @@ class _LoginPage extends State<LoginPage> {
                             '/forgot_pass_main_screen',
                           );
                         },
-                        child: Text(
+                        child: const Text(
                           "Forgot Password ?",
                           style: TextStyle(
                             fontSize: 14,
@@ -230,7 +231,7 @@ class _LoginPage extends State<LoginPage> {
                     children: <Widget>[
                       Expanded(child: Divider(color: Color(0xff878787))),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
                           "Or Sign in With",
                           style: TextStyle(
@@ -245,7 +246,7 @@ class _LoginPage extends State<LoginPage> {
                   ),
 
                   //sizedbox
-                  SizedBox(height: 35),
+                  const SizedBox(height: 35),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
 
@@ -271,21 +272,21 @@ class _LoginPage extends State<LoginPage> {
                           }
                         },
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       SigninWidget(
                         url: "assets/images/appleicon.png",
                         onPress: () {
                           print('called apple');
                         },
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       SigninWidget(
                         url: "assets/images/facebookicon.png",
                         onPress: () {
                           print('called facebook');
                         },
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                     ],
                   ),
                   const SizedBox(height: 32),
@@ -294,7 +295,7 @@ class _LoginPage extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
+                      const Text(
                         "Don't have an account? ",
                         style: TextStyle(
                           fontSize: 15,
@@ -306,7 +307,7 @@ class _LoginPage extends State<LoginPage> {
                         onTap: () {
                           Navigator.pushNamed(context, '/register_page');
                         },
-                        child: Text(
+                        child: const Text(
                           "Register",
                           style: TextStyle(
                             fontSize: 15,
@@ -319,7 +320,7 @@ class _LoginPage extends State<LoginPage> {
                   ),
                   //const SizedBox(height: 50),
                   //sizedbox
-                  SizedBox(height: 100),
+                  const SizedBox(height: 100),
                 ],
               ),
             ),
@@ -329,6 +330,8 @@ class _LoginPage extends State<LoginPage> {
     );
   }
 }
+
+//*************** WIDGETS ********** WIDGETS ************* WIDGETS ****** WIDGETS ****************** WIDGETS ******** WIDGETS *********** WIDGETS ******* WIDGETS ************ WIDGETS ************* WIDGETS ******** WIDGETS ********* WIDGETS *********** WIDGETS ************* WIDGETS ********* WIDGETS ******************************************************************************************************************************** */
 
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
