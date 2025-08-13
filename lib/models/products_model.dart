@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProductsModel {
   final String Product_Category;
   final String Product_Image;
@@ -13,7 +15,7 @@ class ProductsModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'Product_Category' : Product_Category,
+      'Product_Category': Product_Category,
       'Product_Image': Product_Image,
       'Product_Name': Product_Name,
       'Product_price': Product_price,
@@ -25,45 +27,55 @@ class ProductsModel {
       Product_Category: map['Product_Category'] ?? '',
       Product_Image: map['Product_Image'] ?? '',
       Product_Name: map['Product_Name'] ?? '',
-      Product_price: map['Product_price'] ?? '',
+      Product_price: map['Product_price'] ?? 0,
     );
   }
 }
 
-List<ProductsModel> productList = [
+Future<void> UploadProductsToFireStore() async {
+  print('Item: ${productList.length}');
+  for (final products in productList) {
+    await FirebaseFirestore.instance
+        .collection('products')
+        .add(products.toMap());
+    print('Item: $products');
+  }
+  print('products Uploaded');
+}
 
+List<ProductsModel> productList = [
   ProductsModel(
-    Product_Category: 'diary',
+    Product_Category: 'Dairy',
     Product_Image: 'Product_Image',
     Product_Name: 'Amul Fresh Milk (1L)',
     Product_price: 65,
   ),
   ProductsModel(
-    Product_Category: 'diary',
+    Product_Category: 'Dairy',
     Product_Image: 'Product_Image',
     Product_Name: 'Mother Dairy Paneer (200g)',
     Product_price: 85,
   ),
   ProductsModel(
-    Product_Category: 'diary',
+    Product_Category: 'Dairy',
     Product_Image: 'Product_Image',
     Product_Name: 'Amul Butter (500g)',
     Product_price: 275,
   ),
   ProductsModel(
-    Product_Category: 'diary',
+    Product_Category: 'Dairy',
     Product_Image: 'Product_Image',
     Product_Name: 'Britannia Cheese Slices (200g)',
     Product_price: 140,
   ),
   ProductsModel(
-    Product_Category: 'diary',
+    Product_Category: 'Dairy',
     Product_Image: 'Product_Image',
     Product_Name: 'Nestlé Yogurt (100g)',
     Product_price: 30,
   ),
   ProductsModel(
-    Product_Category: 'diary',
+    Product_Category: 'Dairy',
     Product_Image: 'Product_Image',
     Product_Name: 'Govardhan Ghee (500ml)',
     Product_price: 320,
@@ -218,40 +230,39 @@ List<ProductsModel> productList = [
   ),
 
   ProductsModel(
-    Product_Category: 'Meat and Fish',
+    Product_Category: 'Meat & Fish',
     Product_Image: 'Product_Image',
     Product_Name: 'Chicken Breast (500g)',
     Product_price: 180,
   ),
   ProductsModel(
-    Product_Category: 'Meat and Fish',
+    Product_Category: 'Meat & Fish',
     Product_Image: 'Product_Image',
     Product_Name: 'Mutton Curry Cut (500g)',
     Product_price: 380,
   ),
   ProductsModel(
-    Product_Category: 'Meat and Fish',
+    Product_Category: 'Meat & Fish',
     Product_Image: 'Product_Image',
     Product_Name: 'Rohu Fish Slices (500g)',
     Product_price: 160,
   ),
   ProductsModel(
-    Product_Category: 'Meat and Fish',
+    Product_Category: 'Meat & Fish',
     Product_Image: 'Product_Image',
     Product_Name: 'Fresh Prawns (250g)',
     Product_price: 220,
   ),
   ProductsModel(
-    Product_Category: 'Meat and Fish',
+    Product_Category: 'Meat & Fish',
     Product_Image: 'Product_Image',
     Product_Name: 'Eggs - White (6 pcs)',
     Product_price: 45,
   ),
   ProductsModel(
-    Product_Category: 'Meat and Fish',
+    Product_Category: 'Meat & Fish',
     Product_Image: 'Product_Image',
     Product_Name: 'Chicken Sausages (250g)',
     Product_price: 150,
   ),
-
 ];

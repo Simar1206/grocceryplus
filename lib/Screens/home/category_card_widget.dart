@@ -25,20 +25,17 @@ class CategoryCardWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(Category_image),
+            Image.asset(Category_image, height: 111, width: 143,),
 
             const SizedBox(height: 10),
 
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                //textAlign: TextAlign.end,
-                Category_title,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: ConstColor.normalBlack,
-                ),
+            Text(
+              //textAlign: TextAlign.end,
+              Category_title,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: ConstColor.normalBlack,
               ),
             ),
           ],
