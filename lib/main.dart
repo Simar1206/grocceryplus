@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocceryplus/Screens/home/homepage.dart';
 import 'package:grocceryplus/Screens/navigation/select_location_page.dart';
+import 'package:grocceryplus/Screens/settings/settings_page.dart';
 import 'package:grocceryplus/auth/ForgotPassword/forgot_pass_main_screen.dart';
 
 import 'package:grocceryplus/auth/login/login_page.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
-      home: Homepage(),
+      home: SettingsPage(),
 
       routes: {
         '/register_page': (context) => const RegisterPage(),
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/forgot_pass_main_screen': (context) => const ForgotPassMainScreen(),
 
         '/select_location': (context) => const SelectLocationPage(),
+        '/settings_page': (context) => SettingsPage(),
 
         // '/otp_input_screen': (context) => OtpInputScreen(),
         // '/otp_verfication_screen': (context) {

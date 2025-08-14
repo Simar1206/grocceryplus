@@ -32,6 +32,7 @@ dependencies:
   animated_text_field: ^0.0.1+2
   cloud_firestore: ^6.0.0
   cupertino_icons: ^1.0.8
+  dotted_line: ^3.2.3
   firebase_auth: ^6.0.0
   firebase_core: ^4.0.0
   flutter:

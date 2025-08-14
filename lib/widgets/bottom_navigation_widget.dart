@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:grocceryplus/Screens/cart/my_bag.dart';
 import 'package:grocceryplus/Screens/category/category_page.dart';
 import 'package:grocceryplus/Screens/home/homepage.dart';
-import 'package:grocceryplus/Screens/menu/menu_page.dart';
+import 'package:grocceryplus/Screens/settings/settings_page.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class BottomNavigationWidget extends StatelessWidget {
@@ -17,7 +17,7 @@ class BottomNavigationWidget extends StatelessWidget {
     Homepage(),
     CategoryPage(),
     MyBag(),
-    MenuPage(),
+    SettingsPage(),
   ];
 
   @override

@@ -46,6 +46,7 @@ class _HomepageState extends State<Homepage> {
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              automaticallyImplyLeading: false,
               elevation: 0,
               pinned: true,
 
@@ -62,7 +63,7 @@ class _HomepageState extends State<Homepage> {
                   //*search FIELD
                   AnimatedTextField(
                     animationType: Animationtype.slide,
-                    animationDuration: Duration(seconds: 3),
+                    animationDuration: Duration(seconds: 2),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -250,6 +251,7 @@ class TopBarWIdget extends StatelessWidget {
         GestureDetector(
           onTap: () {
             //TODO: navigate  to profile page
+            Get.toNamed('/settings_page');
           },
           child: Container(
             padding: EdgeInsets.all(2),
@@ -341,10 +343,9 @@ class HeaderList extends StatelessWidget {
           children: [
             Icon(
               icon,
-              // color: IsSelected
-              //     ? ConstColor.DailyPlusGreenLight
-              //     :
-              color: Colors.black,
+              color: IsSelected
+                  ? ConstColor.BlackColor
+                  : ConstColor.mediumBlack,
             ),
             const SizedBox(height: 5),
             Text(
@@ -352,11 +353,9 @@ class HeaderList extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
-                color:
-                    // IsSelected
-                    //     ? ConstColor.DailyPlusGreenLight
-                    //     :
-                    Colors.black,
+                color: IsSelected
+                    ? ConstColor.BlackColor
+                    : ConstColor.mediumBlack,
               ),
             ),
 
@@ -365,7 +364,7 @@ class HeaderList extends StatelessWidget {
                 height: 4,
                 width: IsSelected ? 70 : 0,
                 margin: EdgeInsets.only(top: 4),
-                color: IsSelected ? Colors.black : Colors.transparent,
+                color: IsSelected ? ConstColor.BlackColor : Colors.transparent,
 
                 duration: Duration(seconds: 5),
                 curve: Curves.fastOutSlowIn,
