@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grocceryplus/theme/const_color.dart';
-import 'package:grocceryplus/widgets/action_button_widget.dart';
 import 'package:grocceryplus/widgets/add_to_bag_button_widget.dart';
 
 class ProductCardWidget extends StatelessWidget {

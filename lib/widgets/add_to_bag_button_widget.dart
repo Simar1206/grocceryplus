@@ -25,13 +25,13 @@ class AddToBagButtonWidget extends StatelessWidget {
   //*used for passing the controller from outside
   final AddToBagController controller;
 
-  AddToBagButtonWidget({
+  const AddToBagButtonWidget({
     required this.onPress,
     required this.buttonText,
     required this.icon,
     required this.controller,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

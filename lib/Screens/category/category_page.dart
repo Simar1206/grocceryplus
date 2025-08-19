@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:grocceryplus/Screens/home/widgets/category_card_widget.dart';
 import 'package:grocceryplus/Screens/products/product_list_screen.dart';
 import 'package:grocceryplus/models/category_model.dart';
