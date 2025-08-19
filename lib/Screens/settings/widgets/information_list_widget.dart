@@ -44,7 +44,7 @@ class InformationListWidget extends StatelessWidget {
           const SizedBox(height: 5),
 
           SingleCategoryWidget(
-            icon: Icons.chat_bubble_outline_outlined,
+            icon: Icons.support_agent_outlined,
             text: 'Help & Support',
           ),
 

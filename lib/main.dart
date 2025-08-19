@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
-      home: SettingsPage(),
+      home: LoginPage(),
 
       routes: {
         '/register_page': (context) => const RegisterPage(),

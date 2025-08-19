@@ -4,6 +4,7 @@ import 'package:grocceryplus/Screens/settings/widgets/back_button_widget.dart';
 import 'package:grocceryplus/Screens/settings/widgets/cash_gift_card_widget.dart';
 import 'package:grocceryplus/Screens/settings/widgets/horizontal_tabar_widget.dart';
 import 'package:grocceryplus/Screens/settings/widgets/information_list_widget.dart';
+import 'package:grocceryplus/Screens/settings/widgets/logout_button_widget.dart';
 import 'package:grocceryplus/Screens/settings/widgets/profile_widget.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
@@ -75,21 +76,12 @@ class SettingsPage extends StatelessWidget {
               const SizedBox(height: 5),
               InformationListWidgetSecondary(),
 
+              const SizedBox(height: 20,),
+
               //*logout Button:
-              TextButton(
-                onPressed: () {},
-                child: Text('Log Out'),
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(
-                    ConstColor.WhiteColor,
-                  ),
-                  shape: WidgetStatePropertyAll(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadiusGeometry.circular(10),
-                    ),
-                  ),
-                ),
-              ),
+             LogoutButtonWidget(),
+
+             const SizedBox(height: 20,),
             ],
           ),
         ),

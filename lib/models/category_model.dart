@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/rendering.dart';
 
 class CategoryModel {
   final Category_Image;
@@ -56,9 +55,18 @@ List<CategoryModel> groccery_category = [
 //*to upload categories to firestore collection-> category, docs-> products
 Future<void> UploadCategoryToFireStore() async {
   for (final category in groccery_category) {
-    await FirebaseFirestore.instance
+    final NotDuplicateCategory = await FirebaseFirestore.instance
+        .collection('category')
+        .where('Category_Name', isEqualTo: category.Category_Name)
+        .get();
+   if(NotDuplicateCategory.docs.isEmpty) {
+     await FirebaseFirestore.instance
         .collection('category')
         .add(category.toMap());
+         print('Added Category: ${category.Category_Name}');
+   } else {
+    print('Skipped Duplicate: ${category.Category_Name}');
+   }
   }
   print('Categories Uploaded');
 }

@@ -9,7 +9,7 @@ class ProductCardWidget extends StatelessWidget {
   final int Product_price;
   final VoidCallback onPress;
 
-  ProductCardWidget({
+  const ProductCardWidget({
     required this.Product_Image,
     required this.Product_name,
     required this.Product_price,
@@ -19,34 +19,47 @@ class ProductCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //*controller for add to bag defined here:
+    final AddToBagController bagController = AddToBagController();
+
     return GestureDetector(
       onTap: onPress,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //card
+          //* Product Image Card
           Card(
             elevation: 0,
-            color: ConstColor.TextfieldBackground,
+            color: ConstColor.WhiteColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusGeometry.circular(10),
             ),
-            child: Image.asset(Product_Image),
+            clipBehavior: Clip.antiAlias,
+            child: SizedBox(
+              height: 121,
+              width: double.infinity,
+              child: Center(
+                child: Image.asset(Product_Image, fit: BoxFit.contain),
+              ),
+            ),
           ),
 
           const SizedBox(height: 12),
 
           //product name
-          SizedBox(
-            height: 42,
-            width: 164,
-            child: Text(
-              //textAlign: TextAlign.end,
-              Product_name,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: ConstColor.normalBlack,
+          Expanded(
+            child: SizedBox(
+              // height: 42,
+              // width: 164,
+              child: Text(
+                //textAlign: TextAlign.end,
+                Product_name,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: ConstColor.normalBlack,
+                ),
               ),
             ),
           ),
@@ -58,7 +71,7 @@ class ProductCardWidget extends StatelessWidget {
             textAlign: TextAlign.left,
             '\$$Product_price',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.w500,
               color: ConstColor.AccentColor,
             ),
@@ -68,9 +81,10 @@ class ProductCardWidget extends StatelessWidget {
 
           //button
           AddToBagButtonWidget(
+            controller: bagController,
             onPress: () {},
-            ButtonText: 'Add To Bag',
-            icon: Icons.shopping_bag_outlined,
+            buttonText: 'Add to Bag',
+            icon: Icons.shopping_bag,
           ),
         ],
       ),

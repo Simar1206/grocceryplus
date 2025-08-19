@@ -21,7 +21,7 @@ class HorizontalTabarWidget extends StatelessWidget {
         ),
         SingleListWidget(
           icon: Icons.currency_rupee_outlined,
-          text: 'Groccery Plus\nCash',
+          text: 'GrocceryPlus\nCash',
           onPress: () {},
         ),
       ],
@@ -43,33 +43,35 @@ class SingleListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 125,
-      margin: const EdgeInsets.only(right: 12),
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: ConstColor.WhiteColor,
-        boxShadow: [
-          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 24, color: ConstColor.normalBlack),
-          const SizedBox(height: 5),
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: ConstColor.mediumBlack,
+    return Expanded(
+      child: Container(
+        height: 100,
+        //width: 114,
+        margin: const EdgeInsets.only(right: 12),
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: ConstColor.WhiteColor,
+          boxShadow: [
+            BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 24, color: ConstColor.normalBlack),
+            const SizedBox(height: 5),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: ConstColor.mediumBlack,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -5,7 +5,7 @@ class CategoryCardWidget extends StatelessWidget {
   final String Category_image;
   final String Category_title;
   final VoidCallback onPress;
-  CategoryCardWidget({
+  const CategoryCardWidget({
     required this.Category_image,
     required this.Category_title,
     required this.onPress,

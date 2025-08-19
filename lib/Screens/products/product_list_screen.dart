@@ -18,14 +18,14 @@ class _ProductListScreenState extends State<ProductListScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //UploadProductsToFireStore();
+    UploadProductsToFireStore();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 2,
         title: Text(
           widget.Product_Category,
           style: TextStyle(
@@ -66,13 +66,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
                   return GridView.builder(
                     itemCount: products.length,
+
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
+
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 18,
                       crossAxisSpacing: 14,
+                      childAspectRatio: 0.65,
                     ),
 
                     itemBuilder: (context, index) {
@@ -89,7 +92,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
                       );
                     },
                   );
-                
                 },
               ),
             ),

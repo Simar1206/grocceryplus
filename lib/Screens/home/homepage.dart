@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:grocceryplus/Screens/home/category_card_widget.dart';
+import 'package:grocceryplus/Screens/home/widgets/category_card_widget.dart';
 import 'package:grocceryplus/Screens/products/product_list_screen.dart';
 import 'package:grocceryplus/models/category_model.dart';
 import 'package:grocceryplus/models/products_model.dart';
@@ -19,12 +19,20 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  void navigatetoplace(String category_Name) {
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    UploadCategoryToFireStore();
+  }
+
+  void navigatetoplace(String categoryName) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) =>
-            ProductListScreen(Product_Category: category_Name),
+            ProductListScreen(Product_Category: categoryName),
       ),
     );
   }
@@ -216,11 +224,11 @@ class _HomepageState extends State<Homepage> {
                 ),
                 itemBuilder: (context, index) {
                   //*retrieves the raw data from the specific document at the current index. returns data as Map<String, dynamic>
-                  final Category_data =
+                  final categoryData =
                       Category[index].data() as Map<String, dynamic>;
 
                   //* It takes the raw data map from Firestore and uses the fromMap factory constructor in your CategoryModel to create a type-safe CategoryModel object.
-                  final categoryModel = CategoryModel.fromMap(Category_data);
+                  final categoryModel = CategoryModel.fromMap(categoryData);
 
                   return CategoryCardWidget(
                     onPress: () {

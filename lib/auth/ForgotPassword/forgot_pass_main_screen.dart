@@ -1,12 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:grocceryplus/firebase/repository.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/action_button_widget.dart';
 import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
-import 'package:grocceryplus/widgets/signin_widget.dart';
 
 class ForgotPassMainScreen extends StatefulWidget {
   const ForgotPassMainScreen({super.key});
