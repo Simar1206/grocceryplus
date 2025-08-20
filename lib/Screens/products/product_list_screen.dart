@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/Screens/home/homepage.dart';
+import 'package:grocceryplus/Screens/products/product_details_page.dart';
 import 'package:grocceryplus/Screens/products/widgets/product_card_widget.dart';
+import 'package:grocceryplus/Screens/products/widgets/rounded_icon_widget.dart';
 import 'package:grocceryplus/models/products_model.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
@@ -25,6 +28,16 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: RoundedIconWidget(
+          icon: Icons.arrow_back_ios_new,
+          color: ConstColor.BlackColor,
+          iconPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Homepage()),
+            );
+          },
+        ),
         elevation: 2,
         title: Text(
           widget.Product_Category,
@@ -88,7 +101,15 @@ class _ProductListScreenState extends State<ProductListScreen> {
                         Product_Image: productModel.Product_Image,
                         Product_name: "$index - ${productModel.Product_Name}",
                         Product_price: productModel.Product_price,
-                        onPress: () {},
+                        onPress: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ProductDetailsPage(product: productModel),
+                            ),
+                          );
+                        },
                       );
                     },
                   );

@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class AddToBagController extends GetxController {
-  final currentValue = 0.obs;
+  final currentValue = 1.obs;
   final isPressed = false.obs;
 
   void increment() => currentValue.value++;
   void decrement() {
-    if (currentValue.value > 0) {
+    if (currentValue.value > 1) {
       currentValue.value--;
     } else {
       isPressed.value = false;

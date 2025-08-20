@@ -37,6 +37,7 @@ dependencies:
   firebase_core: ^4.0.0
   flutter:
     sdk: flutter
+  flutter_rating_bar: ^4.0.1
   flutter_secure_storage: ^9.2.4
   get: ^4.7.2
   google_nav_bar: ^5.0.7

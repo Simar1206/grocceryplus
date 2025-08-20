@@ -18,7 +18,6 @@ class ProductCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //*controller for add to bag defined here:
     final AddToBagController bagController = AddToBagController();
 
@@ -32,21 +31,36 @@ class ProductCardWidget extends StatelessWidget {
             elevation: 0,
             color: ConstColor.WhiteColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadiusGeometry.circular(10),
+              borderRadius: BorderRadius.circular(10),
             ),
             clipBehavior: Clip.antiAlias,
             child: SizedBox(
               height: 121,
               width: double.infinity,
               child: Center(
-                child: Image.asset(Product_Image, fit: BoxFit.contain),
+                //*added tag for hero animation:
+                child: Hero(
+                   createRectTween: (begin, end) {
+                      return MaterialRectArcTween(begin: begin, end: end);
+                    },
+                    transitionOnUserGestures: true,
+                  tag: '${Product_name}_$Product_Image',
+                  child: Image.asset(Product_Image, fit: BoxFit.contain),
+                ),
               ),
             ),
           ),
 
           const SizedBox(height: 12),
 
-          //product name
+          //*veg + quanity
+          Row(
+            children: [
+              
+            ],
+          ),
+
+          //*product name
           Expanded(
             child: SizedBox(
               // height: 42,
