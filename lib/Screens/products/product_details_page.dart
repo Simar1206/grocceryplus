@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocceryplus/Screens/products/product_list_screen.dart';
+import 'package:grocceryplus/Screens/products/widgets/additional_info_widget.dart';
 import 'package:grocceryplus/Screens/products/widgets/rounded_icon_widget.dart';
 import 'package:grocceryplus/models/products_model.dart';
 import 'package:grocceryplus/theme/const_color.dart';
+import 'package:grocceryplus/widgets/add_to_bag_button_widget.dart';
+import 'package:grocceryplus/widgets/add_to_bag_widget_dark.dart';
+import 'package:grocceryplus/widgets/animated_button_for_cart.dart';
+import 'package:grocceryplus/widgets/is_Veg_button_widget.dart';
+import 'package:grocceryplus/widgets/rating_bar_widget.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   //*obj of product model
@@ -18,6 +24,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20),
+        child: AnimatedButtonForCart(),
+      ),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
@@ -126,17 +136,26 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
               //* Details Column
 
-              //*text
-              Text(
-                widget.product.Product_Name,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: ConstColor.BlackColor,
-                ),
+              //*text +veg
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.product.Product_Name,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: ConstColor.BlackColor,
+                    ),
+                  ),
+                  IsVegButtonWidget(IsVeg: widget.product.IsVeg),
+                ],
               ),
 
-              const SizedBox(height: 16,),
+              const SizedBox(height: 10),
+
+              RatingBarWidget(Product_rating: widget.product.Product_rating),
+              const SizedBox(height: 16),
 
               //*quantity + price
               Row(
@@ -163,6 +182,27 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   ),
                 ],
               ),
+              const SizedBox(height: 24),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AdditionalInfoWidget(
+                    text: 'No Returns Or Exchange',
+                    onPress: () {},
+                    icon: Icons.cancel_outlined,
+                  ),
+              
+                  const SizedBox(width: 10),
+              
+                  AdditionalInfoWidget(
+                    text: 'Fast Delivery',
+                    onPress: () {},
+                    icon: Icons.bolt_outlined,
+                  ),
+                ],
+              ),
+
               const SizedBox(height: 24),
 
               //* icon + category

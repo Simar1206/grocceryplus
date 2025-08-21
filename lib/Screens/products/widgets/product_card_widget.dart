@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/add_to_bag_button_widget.dart';
+import 'package:grocceryplus/widgets/is_Veg_button_widget.dart';
+import 'package:grocceryplus/widgets/rating_bar_widget.dart';
 
 class ProductCardWidget extends StatelessWidget {
   final String Product_Image;
   final String Product_name;
   final int Product_price;
+  final int Product_rating;
+  final String Product_quantity;
+  final bool IsVeg;
   final VoidCallback onPress;
 
   const ProductCardWidget({
@@ -14,6 +20,9 @@ class ProductCardWidget extends StatelessWidget {
     required this.Product_price,
     required this.onPress,
     super.key,
+    required this.Product_rating,
+    required this.IsVeg,
+    required this.Product_quantity,
   });
 
   @override
@@ -40,10 +49,10 @@ class ProductCardWidget extends StatelessWidget {
               child: Center(
                 //*added tag for hero animation:
                 child: Hero(
-                   createRectTween: (begin, end) {
-                      return MaterialRectArcTween(begin: begin, end: end);
-                    },
-                    transitionOnUserGestures: true,
+                  createRectTween: (begin, end) {
+                    return MaterialRectArcTween(begin: begin, end: end);
+                  },
+                  transitionOnUserGestures: true,
                   tag: '${Product_name}_$Product_Image',
                   child: Image.asset(Product_Image, fit: BoxFit.contain),
                 ),
@@ -56,9 +65,22 @@ class ProductCardWidget extends StatelessWidget {
           //*veg + quanity
           Row(
             children: [
-              
+              //*veg logo
+              IsVegButtonWidget(IsVeg: IsVeg),
+
+              const SizedBox(width: 10),
+
+              Text(
+                Product_quantity,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: ConstColor.normalBlack,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
+          const SizedBox(height: 10),
 
           //*product name
           Expanded(
@@ -76,6 +98,10 @@ class ProductCardWidget extends StatelessWidget {
               ),
             ),
           ),
+
+          const SizedBox(height: 5),
+
+          RatingBarWidget(Product_rating: Product_rating),
 
           const SizedBox(height: 10),
 

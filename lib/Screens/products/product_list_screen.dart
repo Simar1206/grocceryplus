@@ -16,11 +16,26 @@ class ProductListScreen extends StatefulWidget {
   State<ProductListScreen> createState() => _ProductListScreenState();
 }
 
-class _ProductListScreenState extends State<ProductListScreen> {
+class _ProductListScreenState extends State<ProductListScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  late Animation<Offset> slideAnimation;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    slideAnimation = Tween(
+      begin: Offset(0, 1),
+      end: Offset.zero,
+    ).animate(animationController);
+    animationController.forward();
+
     UploadProductsToFireStore();
   }
 
@@ -77,41 +92,47 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
                   print('Items build: ${products.length}');
 
-                  return GridView.builder(
-                    itemCount: products.length,
+                  return SlideTransition(
+                    position: slideAnimation,
+                    child: GridView.builder(
+                      itemCount: products.length,
 
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
 
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 18,
-                      crossAxisSpacing: 14,
-                      childAspectRatio: 0.65,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 18,
+                        crossAxisSpacing: 14,
+                        childAspectRatio: 0.65,
+                      ),
+
+                      itemBuilder: (context, index) {
+                        final ProductData =
+                            products[index].data() as Map<String, dynamic>;
+
+                        final productModel = ProductsModel.fromMap(ProductData);
+
+                        return ProductCardWidget(
+                          Product_Image: productModel.Product_Image,
+                          Product_name: "$index - ${productModel.Product_Name}",
+                          Product_price: productModel.Product_price,
+                          Product_rating: productModel.Product_rating,
+                          IsVeg: productModel.IsVeg,
+                          Product_quantity: productModel.Product_quantity,
+                          onPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductDetailsPage(product: productModel),
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
-
-                    itemBuilder: (context, index) {
-                      final ProductData =
-                          products[index].data() as Map<String, dynamic>;
-
-                      final productModel = ProductsModel.fromMap(ProductData);
-
-                      return ProductCardWidget(
-                        Product_Image: productModel.Product_Image,
-                        Product_name: "$index - ${productModel.Product_Name}",
-                        Product_price: productModel.Product_price,
-                        onPress: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ProductDetailsPage(product: productModel),
-                            ),
-                          );
-                        },
-                      );
-                    },
                   );
                 },
               ),
