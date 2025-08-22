@@ -17,10 +17,12 @@ class AdditionalInfoWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: Container(
+        height: 90,
+        width: 188,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: ConstColor.GreyColor.withValues(alpha: 0.25),
+          borderRadius: BorderRadius.circular(20),
+          color: ConstColor.shadowColor,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

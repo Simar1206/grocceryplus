@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ConstColor {
   static const normalBlack = Color(0xff37474F);
+  static const shadowColor = Color(0xffF9F9FD);
   static const GreyColor = Colors.grey;
   static const mediumBlack = Color(0xffbd37474f);
   static const DailyPlusGreen = Color(0xff5EC401);

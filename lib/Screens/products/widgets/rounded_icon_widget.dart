@@ -18,7 +18,7 @@ class RoundedIconWidget extends StatelessWidget {
     return GestureDetector(
       onTap: iconPress,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(right: 10.0),
         child: Container(
           //margin: EdgeInsets.all(2),
           padding: EdgeInsets.all(8),
