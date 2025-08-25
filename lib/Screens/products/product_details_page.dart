@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_connect.dart';
 
 import 'package:grocceryplus/Screens/products/product_list_screen.dart';
 import 'package:grocceryplus/Screens/products/widgets/additional_info_widget.dart';
 import 'package:grocceryplus/Screens/products/widgets/discription_widget.dart';
 import 'package:grocceryplus/Screens/products/widgets/rounded_icon_widget.dart';
 import 'package:grocceryplus/models/products_model.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/action_button_widget.dart';
 
@@ -51,7 +53,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20),
+        padding: EdgeInsets.symmetric(
+          vertical: Responsive.h(0.03),
+          horizontal: Responsive.w(0.046),
+        ),
         child: AnimatedButtonForCart(),
       ),
       body: NestedScrollView(
@@ -59,18 +64,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              toolbarHeight: 70,
+              toolbarHeight: Responsive.h(0.075),
 
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusGeometry.circular(20),
+                borderRadius: BorderRadiusGeometry.circular(30),
               ),
 
               backgroundColor: _isScrolled
                   ? ConstColor.WhiteColor
                   : Colors.transparent,
 
-              automaticallyImplyLeading: false,
-              expandedHeight: 450,
+              automaticallyImplyLeading: true,
+              expandedHeight: Responsive.h(0.40), //should be 45
               elevation: _isScrolled ? 4 : 0,
               pinned: true,
               floating: false,
@@ -87,18 +92,15 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ),
                   );
                 },
-
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(
-                        color: ConstColor.GreyColor.withValues(alpha: 0.25),
-                      ),
-                      color: ConstColor.WhiteColor,
+                  padding: EdgeInsets.all(Responsive.w(0.015)),
+                  child: CircleAvatar(
+                    backgroundColor: ConstColor.WhiteColor,
+                    child: Icon(
+                      Icons.arrow_back_ios_new,
+                      size: Responsive.w(0.05),
+                      color: ConstColor.BlackColor,
                     ),
-                    child: Icon(Icons.arrow_back_ios_new, size: 24),
                   ),
                 ),
               ),
@@ -117,12 +119,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           child: Image.asset(
                             widget.product.Product_Image,
                             fit: BoxFit.cover,
-                            height: 50,
-                            width: 50,
+                            height: Responsive.h(0.048),
+                            width: Responsive.w(0.104),
                           ),
                         ),
 
-                        const SizedBox(width: 5),
+                        SizedBox(width: Responsive.w(0.025)),
                         //* product text
                         Expanded(
                           child: Column(
@@ -131,18 +133,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               Text(
                                 widget.product.Product_Name,
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: Responsive.fs(0.027),
                                   fontWeight: FontWeight.w400,
                                   color: ConstColor.BlackColor,
                                 ),
                               ),
 
-                              const SizedBox(height: 5),
+                              SizedBox(height: Responsive.h(0.005)),
 
                               Text(
                                 '\$ ${widget.product.Product_price.toString()}',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: Responsive.fs(0.027),
                                   fontWeight: FontWeight.w700,
                                   color: ConstColor.BlackColor,
                                 ),
@@ -163,7 +165,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       background: Image.asset(
                         widget.product.Product_Image,
                         fit: BoxFit.cover,
-                        height: 308,
+                        height: Responsive.h(0.33),
                       ),
                     ),
                   ),
@@ -173,6 +175,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 //*like
                 RoundedIconWidget(
                   icon: Icons.favorite_outline,
+
                   color: ConstColor.BlackColor,
                   iconPress: () {},
                 ),
@@ -193,14 +196,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           ];
         },
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(Responsive.w(0.037)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //* Details Column
               //*text +veg
               Container(
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(Responsive.w(0.034)),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: ConstColor.WhiteColor,
@@ -211,35 +214,40 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          widget.product.Product_Name,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: ConstColor.BlackColor,
+                        Flexible(
+                          child: Text(
+                            widget.product.Product_Name,
+                            style: TextStyle(
+                              fontSize: Responsive.w(0.046),
+                              fontWeight: FontWeight.w500,
+                              color: ConstColor.BlackColor,
+                            ),
                           ),
                         ),
                         IsVegButtonWidget(IsVeg: widget.product.IsVeg),
                       ],
                     ),
-                    const SizedBox(height: 10),
+
+                    SizedBox(height: Responsive.h(0.010)),
 
                     RatingBarWidget(
                       Product_rating: widget.product.Product_rating,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: Responsive.h(0.017)),
 
                     //*quantity + price
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //* Quanitity
-                        Text(
-                          widget.product.Product_quantity,
-                          style: TextStyle(
-                            fontSize: 29,
-                            fontWeight: FontWeight.w700,
-                            color: ConstColor.mediumBlack,
+                        Flexible(
+                          child: Text(
+                            widget.product.Product_quantity,
+                            style: TextStyle(
+                              fontSize: Responsive.w(0.067),
+                              fontWeight: FontWeight.w700,
+                              color: ConstColor.mediumBlack,
+                            ),
                           ),
                         ),
 
@@ -248,7 +256,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           '\$ ${widget.product.Product_price.toString()}',
                           style: TextStyle(
                             color: ConstColor.DailyPlusGreen,
-                            fontSize: 29,
+                            fontSize: Responsive.w(0.067),
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -258,10 +266,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              SizedBox(height: Responsive.h(0.025)),
 
               Container(
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(Responsive.w(0.034)),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: ConstColor.WhiteColor,
@@ -275,7 +283,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       icon: Icons.cancel_outlined,
                     ),
 
-                    const SizedBox(width: 10),
+                    SizedBox(width: Responsive.w(0.023)),
 
                     AdditionalInfoWidget(
                       text: 'Fast Delivery',
@@ -286,240 +294,212 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              SizedBox(height: Responsive.h(0.025)),
 
               //*Highlights Informtion.
               //*white container
-              Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: ConstColor.WhiteColor,
-                ),
-                //*shadow container Inner
+              Flexible(
                 child: Container(
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(Responsive.w(0.034)),
                   decoration: BoxDecoration(
-                    color: ConstColor.shadowColor,
                     borderRadius: BorderRadius.circular(20),
+                    color: ConstColor.WhiteColor,
                   ),
+                  //*shadow container Inner
+                  child: Container(
+                    padding: EdgeInsets.all(Responsive.w(0.034)),
+                    decoration: BoxDecoration(
+                      color: ConstColor.shadowColor,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
 
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Highlights',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: ConstColor.BlackColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      //*always Visible
-                      DiscriptionWidget(
-                        type: 'Brand',
-                        discription: widget.product.Product_Name,
-                      ),
-
-                      const SizedBox(height: 10),
-                      DiscriptionWidget(
-                        type: 'Product Type',
-                        discription: widget.product.Product_Category,
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      AnimatedCrossFade(
-                        firstCurve: Curves.easeIn,
-                        secondCurve: Curves.easeOut,
-                        duration: const Duration(milliseconds: 400),
-                      
-                        crossFadeState: clickedViewMore
-                            ? CrossFadeState.showSecond
-                            : CrossFadeState.showFirst,
-                      
-                        firstChild: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              clickedViewMore = true;
-                            });
-                          },
-                      
-                          //*view button to show the rest :
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Highlights',
+                            style: TextStyle(
+                              fontSize: Responsive.fs(0.034),
+                              color: ConstColor.BlackColor,
+                              fontWeight: FontWeight.w600,
                             ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(
-                                color: ConstColor.GreyColor.withValues(
-                                  alpha: 0.15,
+                          ),
+
+                          SizedBox(height: Responsive.h(0.01)),
+
+                          //*always Visible
+                          DiscriptionWidget(
+                            type: 'Brand',
+                            discription: widget.product.Product_Name,
+                          ),
+
+                          SizedBox(height: Responsive.h(0.01)),
+
+                          DiscriptionWidget(
+                            type: 'Product Type',
+                            discription: widget.product.Product_Category,
+                          ),
+
+                          SizedBox(height: Responsive.h(0.01)),
+
+                          AnimatedCrossFade(
+                            firstCurve: Curves.easeIn,
+                            secondCurve: Curves.easeOut,
+                            duration: const Duration(milliseconds: 400),
+
+                            crossFadeState: clickedViewMore
+                                ? CrossFadeState.showSecond
+                                : CrossFadeState.showFirst,
+
+                            firstChild: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  clickedViewMore = true;
+                                });
+                              },
+
+                              //*view button to show the rest :
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: Responsive.w(0.027),
+                                  vertical: Responsive.h(0.008),
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  border: Border.all(
+                                    color: ConstColor.GreyColor.withValues(
+                                      alpha: 0.15,
+                                    ),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'View More',
+                                      style: TextStyle(
+                                        fontSize: Responsive.fs(0.027),
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.pink,
+                                      ),
+                                    ),
+                                    SizedBox(width: Responsive.w(0.011)),
+                                    Icon(
+                                      Icons.keyboard_arrow_down_outlined,
+                                      color: Colors.pink,
+                                      size: Responsive.fs(0.055),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  'View More',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.pink,
+
+                            secondChild: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(width: Responsive.w(0.011)),
+
+                                // your repeated widgets (use List.generate for cleaner code)
+                                DiscriptionWidget(
+                                  type: 'Weight',
+                                  discription: widget.product.Product_quantity,
+                                ),
+
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(
+                                  type: 'Deitary  preference',
+                                  widget: IsVegButtonWidget(
+                                    IsVeg: widget.product.IsVeg,
                                   ),
                                 ),
-                                SizedBox(width: 5),
-                                Icon(
-                                  Icons.keyboard_arrow_down_outlined,
-                                  color: Colors.pink,
-                                  size: 24,
+
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(
+                                  type: 'Key Features',
+                                  discription:
+                                      widget.product.Product_description,
+                                ),
+
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(type: 'Imported'),
+
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(type: 'Fssai Licensce'),
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(
+                                  type: 'Nutrition Information',
+                                ),
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(type: 'Packaging Type'),
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(type: 'Imported'),
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(type: 'Fssai Licensce'),
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(
+                                  type: 'Rating',
+                                  discription: widget.product.Product_rating
+                                      .toString(),
+                                ),
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                DiscriptionWidget(
+                                  type: 'Price',
+                                  discription: widget.product.Product_price
+                                      .toString(),
+                                ),
+                                SizedBox(height: Responsive.h(0.01)),
+
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() => clickedViewMore = false);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'View Less',
+                                        style: TextStyle(
+                                          fontSize: Responsive.fs(0.027),
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.pink,
+                                        ),
+                                      ),
+                                      SizedBox(width: Responsive.w(0.011)),
+                                      Icon(
+                                        Icons.keyboard_arrow_up_outlined,
+                                        color: Colors.pink,
+                                        size: Responsive.fs(0.055),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ),
-                      
-                        secondChild: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10),
-                      
-                            // your repeated widgets (use List.generate for cleaner code)
-                            DiscriptionWidget(
-                              type: 'Weight',
-                              discription: widget.product.Product_quantity,
-                            ),
-                      
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(
-                              type: 'Deitary  preference',
-                              widget: IsVegButtonWidget(
-                                IsVeg: widget.product.IsVeg,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(
-                              type: 'Key Features',
-                              discription: widget.product.Product_description,
-                            ),
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(type: 'Imported'),
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(type: 'Fssai Licensce'),
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(type: 'Nutrition Information'),
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(type: 'Packaging Type'),
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(type: 'Imported'),
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(type: 'Fssai Licensce'),
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(
-                              type: 'Rating',
-                              discription: widget.product.Product_rating
-                                  .toString(),
-                            ),
-                            const SizedBox(height: 10),
-                      
-                            DiscriptionWidget(
-                              type: 'Price',
-                              discription: widget.product.Product_price
-                                  .toString(),
-                            ),
-                            const SizedBox(height: 10),
-                      
-                            GestureDetector(
-                              onTap: () {
-                                setState(() => clickedViewMore = false);
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text(
-                                    'View Less',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.pink,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Icon(
-                                    Icons.keyboard_arrow_up_outlined,
-                                    color: Colors.pink,
-                                    size: 24,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
 
-              Row(
-                children: [
-                  Icon(
-                    Icons.category_outlined,
-                    size: 24,
-                    color: ConstColor.BlackColor,
-                  ),
-                  const SizedBox(width: 9),
-                  Text(
-                    widget.product.Product_Category,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: ConstColor.BlackColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
+              SizedBox(height: Responsive.h(0.04)),
 
-              const SizedBox(height: 30),
-
-              //*icon + description
-              Row(
-                children: [
-                  Icon(Icons.menu, size: 24, color: ConstColor.BlackColor),
-                  const SizedBox(width: 9),
-                  Expanded(
-                    child: Text(
-                      widget.product.Product_description,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: ConstColor.BlackColor,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 40),
-
-              const Text(
+              Text(
                 'You can also check this items',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: Responsive.w(0.037),
                   fontWeight: FontWeight.w500,
                   color: ConstColor.normalBlack,
                 ),

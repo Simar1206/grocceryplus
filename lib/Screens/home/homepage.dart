@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:grocceryplus/Screens/home/widgets/category_card_widget.dart';
 import 'package:grocceryplus/Screens/products/product_list_screen.dart';
 import 'package:grocceryplus/models/category_model.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/bottom_navigation_widget.dart';
 import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
@@ -17,8 +18,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -29,8 +29,7 @@ class _HomepageState extends State<Homepage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            ProductListScreen(Product_Category: categoryName),
+        builder: (context) => ProductListScreen(Product_Category: categoryName),
       ),
     );
   }
@@ -57,14 +56,14 @@ class _HomepageState extends State<Homepage> {
               pinned: true,
 
               //floating: true,
-              toolbarHeight: 180,
+              toolbarHeight: Responsive.h(0.19),
 
               title: Column(
                 children: [
                   //*User details and locations:
                   TopBarWIdget(),
 
-                  const SizedBox(height: 10),
+                  SizedBox(height: Responsive.h(0.01)),
 
                   //*search FIELD
                   AnimatedTextField(
@@ -80,7 +79,7 @@ class _HomepageState extends State<Homepage> {
                       hintText: 'Search Anything',
                       prefixIcon: Icon(Icons.search),
                       hintStyle: TextStyle(
-                        fontSize: 16,
+                        fontSize: Responsive.fs(0.037),
 
                         fontWeight: FontWeight.w400,
                         color: ConstColor.mediumBlack,
@@ -101,11 +100,11 @@ class _HomepageState extends State<Homepage> {
                     ],
                   ),
 
-                  const SizedBox(height: 15),
+                  SizedBox(height: Responsive.h(0.016)),
 
                   //* LIST OF ITEMS HEADER:
                   SizedBox(
-                    height: 60,
+                    height: Responsive.h(0.064),
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -189,7 +188,7 @@ class _HomepageState extends State<Homepage> {
           ];
         },
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: Responsive.w(0.037)),
           child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('category')
@@ -213,12 +212,12 @@ class _HomepageState extends State<Homepage> {
 
                 itemCount: Category.length,
 
-                padding: EdgeInsets.only(top: 0, bottom: 0),
+                padding: EdgeInsets.zero,
 
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 14,
-                  crossAxisSpacing: 18,
+                  mainAxisSpacing: Responsive.h(0.015),
+                  crossAxisSpacing: Responsive.w(0.032),
                 ),
                 itemBuilder: (context, index) {
                   //*retrieves the raw data from the specific document at the current index. returns data as Map<String, dynamic>
@@ -260,23 +259,23 @@ class TopBarWIdget extends StatelessWidget {
             Get.toNamed('/settings_page');
           },
           child: Container(
-            padding: EdgeInsets.all(2),
+            padding: EdgeInsets.all(Responsive.w(0.005)),
             decoration: BoxDecoration(
               border: Border.all(
-                width: 2,
+                width: Responsive.w(0.005),
                 color: ConstColor.DailyPlusGreenLight,
               ),
               borderRadius: BorderRadius.circular(100),
             ),
             child: Icon(
-              size: 24,
+              size: Responsive.fs(0.056),
               Icons.person,
               color: ConstColor.DailyPlusGreenLight,
             ),
           ),
         ),
 
-        const SizedBox(width: 11),
+        SizedBox(width: Responsive.w(0.025)),
 
         //*Text
         Column(
@@ -285,15 +284,18 @@ class TopBarWIdget extends StatelessWidget {
             //*to display two different text style
             Row(
               children: [
-                const Text(
+                Text(
                   'Delivery In',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    fontSize: Responsive.fs(0.039),
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                const Text(
+                Text(
                   ' 12 Mins',
                   style: TextStyle(
                     color: ConstColor.DailyPlusGreen,
-                    fontSize: 17,
+                    fontSize: Responsive.fs(0.039),
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -303,16 +305,22 @@ class TopBarWIdget extends StatelessWidget {
             //*LLocation:
             Row(
               children: [
-                const Text(
+                Text(
                   '*to insert the location from APi*',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+                  style: TextStyle(
+                    fontSize: Responsive.fs(0.030),
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
 
                 GestureDetector(
                   onTap: () {
                     //TODO: NAvigate to locations page
                   },
-                  child: Icon(Icons.arrow_drop_down_outlined, size: 24),
+                  child: Icon(
+                    Icons.arrow_drop_down_outlined,
+                    size: Responsive.fs(0.05),
+                  ),
                 ),
               ],
             ),
@@ -343,7 +351,7 @@ class HeaderList extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: Responsive.w(0.046)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -353,11 +361,11 @@ class HeaderList extends StatelessWidget {
                   ? ConstColor.BlackColor
                   : ConstColor.mediumBlack,
             ),
-            const SizedBox(height: 5),
+            SizedBox(height: Responsive.h(0.005)),
             Text(
               Discription,
               style: TextStyle(
-                fontSize: 11,
+                fontSize: Responsive.fs(0.025),
                 fontWeight: FontWeight.w500,
                 color: IsSelected
                     ? ConstColor.BlackColor
@@ -367,8 +375,8 @@ class HeaderList extends StatelessWidget {
 
             if (IsSelected) ...[
               AnimatedContainer(
-                height: 4,
-                width: IsSelected ? 70 : 0,
+                height: Responsive.h(0.004),
+                width: IsSelected ? Responsive.w(0.16) : 0,
                 margin: EdgeInsets.only(top: 4),
                 color: IsSelected ? ConstColor.BlackColor : Colors.transparent,
 

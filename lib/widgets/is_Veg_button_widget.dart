@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class IsVegButtonWidget extends StatelessWidget {
@@ -8,19 +9,19 @@ class IsVegButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(3),
-      height: 20,
-      width: 20,
+      padding: EdgeInsets.all(Responsive.w(0.006)),
+      height: Responsive.h(0.019),
+      width: Responsive.w(0.041),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
-          width: 2,
+          width: Responsive.w(0.004),
           color: IsVeg ? ConstColor.DarkGreenColor : Colors.red,
         ),
       ),
       child: Container(
-        height: 15,
-        width: 15,
+        height: Responsive.h(0.021),
+        width: Responsive.h(0.046),
         decoration: BoxDecoration(
           color: IsVeg ? ConstColor.DarkGreenColor : Colors.red,
           borderRadius: BorderRadius.circular(100),

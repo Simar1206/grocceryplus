@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class DiscriptionWidget extends StatelessWidget {
@@ -23,7 +24,7 @@ class DiscriptionWidget extends StatelessWidget {
           child: Text(
             type,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: Responsive.fs(0.027),
               color: ConstColor.mediumBlack,
               fontWeight: FontWeight.w500,
             ),
@@ -34,7 +35,7 @@ class DiscriptionWidget extends StatelessWidget {
           child: Text(
             discription ?? 'N/A',
             style: TextStyle(
-              fontSize: 12,
+              fontSize: Responsive.fs(0.027),
               color: ConstColor.BlackColor,
               fontWeight: FontWeight.w500,
             ),

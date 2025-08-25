@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class AddToBagController extends GetxController {
@@ -37,7 +38,7 @@ class AddToBagButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => AnimatedContainer(
-        height: 40,
+        height: Responsive.h(0.042),
         duration: Duration(milliseconds: 300),
         curve: Curves.easeIn,
         decoration: BoxDecoration(
@@ -45,11 +46,14 @@ class AddToBagButtonWidget extends StatelessWidget {
               ? ConstColor.DailyPlusGreenLight
               : ConstColor.DailyPlusGreenLight.withValues(alpha: 0.25),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: ConstColor.DailyPlusGreen, width: 1),
+          border: Border.all(
+            color: ConstColor.DailyPlusGreen,
+            width: Responsive.w(0.002),
+          ),
         ),
         child: controller.isPressed.value
             ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: Responsive.w(0.018)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -58,7 +62,7 @@ class AddToBagButtonWidget extends StatelessWidget {
                       icon: Icon(
                         Icons.remove,
                         color: ConstColor.WhiteColor,
-                        size: 24,
+                        size: Responsive.w(0.056),
                       ),
                     ),
                     Obx(
@@ -66,7 +70,7 @@ class AddToBagButtonWidget extends StatelessWidget {
                         controller.currentValue.value.toString(),
                         style: TextStyle(
                           color: ConstColor.WhiteColor,
-                          fontSize: 14,
+                          fontSize: Responsive.fs(0.033),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -76,7 +80,7 @@ class AddToBagButtonWidget extends StatelessWidget {
                       icon: Icon(
                         Icons.add,
                         color: ConstColor.WhiteColor,
-                        size: 24,
+                        size: Responsive.w(0.056),
                       ),
                     ),
                   ],
@@ -88,20 +92,26 @@ class AddToBagButtonWidget extends StatelessWidget {
                   controller.pressButton();
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Responsive.w(0.018),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(icon, size: 24, color: ConstColor.DailyPlusGreen),
+                      Icon(
+                        icon,
+                        size: Responsive.w(0.056),
+                        color: ConstColor.DailyPlusGreen,
+                      ),
                       Text(
                         buttonText,
                         style: TextStyle(
                           color: ConstColor.DailyPlusGreen,
-                          fontSize: 15,
+                          fontSize: Responsive.fs(0.035),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(width: 24),
+                      SizedBox(width: Responsive.w(0.056)),
                     ],
                   ),
                 ),

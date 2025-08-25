@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class RatingBarWidget extends StatelessWidget {
@@ -13,7 +14,7 @@ class RatingBarWidget extends StatelessWidget {
       maxRating: 5,
 
       allowHalfRating: true,
-      itemSize: 20,
+      itemSize:Responsive.w(0.046),
       initialRating: Product_rating.toDouble(),
       itemCount: 5,
       itemPadding: EdgeInsetsGeometry.only(right: 2),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/state_manager.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class AnimatedButtonController extends GetxController {
@@ -39,8 +40,8 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     // Instead of hardcoding, calculate based on screen width
-    final collapsedWidth = screenWidth * 0.88; // 90% of screen
-    final expandedWidth = screenWidth * 0.44; // 45% of screen
+    final collapsedWidth = Responsive.fs(0.88); // 90% of screen
+    final expandedWidth = Responsive.fs(0.44); // 45% of screen
 
     return Obx(
       () => GestureDetector(
@@ -48,9 +49,9 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
         child: Row(
           children: [
             AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 600),
               curve: Curves.easeInOut,
-              height: 48,
+              height: Responsive.h(0.051),
               width: controller.isPressed.value
                   ? expandedWidth
                   : collapsedWidth,
@@ -72,7 +73,7 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
                             controller.currentValue.value.toString(),
                             style: TextStyle(
                               color: ConstColor.WhiteColor,
-                              fontSize: screenWidth * 0.04, // responsive font
+                              fontSize: Responsive.fs(0.04),
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -89,16 +90,18 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
                         'Add to Cart',
                         style: TextStyle(
                           color: ConstColor.WhiteColor,
-                          fontSize: screenWidth * 0.04, // responsive font
+                          fontSize: Responsive.fs(0.04),
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
             ),
-            const SizedBox(width: 8),
+
+            SizedBox(width: Responsive.w(0.02)),
+
             if (controller.isPressed.value)
               AnimatedContainer(
-                height: 48,
+                height: Responsive.h(0.051),
                 width: expandedWidth,
                 duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOut,
@@ -106,19 +109,22 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(color: Colors.pink, width: 2),
                 ),
-                child: InkWell(
+                child: GestureDetector(
                   onTap: () {
                     // TODO: Navigate to cart
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.shopping_cart_outlined, size: 24),
-                      const SizedBox(width: 6),
+                      Icon(
+                        Icons.shopping_cart_outlined,
+                        size: Responsive.w(0.055),
+                      ),
+                      SizedBox(width: Responsive.w(0.01)),
                       Text(
                         'View In Cart',
                         style: TextStyle(
-                          fontSize: screenWidth * 0.04, // responsive font
+                          fontSize: Responsive.fs(0.04), // responsive font
                           fontWeight: FontWeight.w600,
                         ),
                       ),

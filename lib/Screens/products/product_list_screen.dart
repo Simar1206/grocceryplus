@@ -5,6 +5,7 @@ import 'package:grocceryplus/Screens/products/product_details_page.dart';
 import 'package:grocceryplus/Screens/products/widgets/product_card_widget.dart';
 import 'package:grocceryplus/Screens/products/widgets/rounded_icon_widget.dart';
 import 'package:grocceryplus/models/products_model.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
 
@@ -41,6 +42,8 @@ class _ProductListScreenState extends State<ProductListScreen>
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: RoundedIconWidget(
@@ -57,7 +60,7 @@ class _ProductListScreenState extends State<ProductListScreen>
         title: Text(
           widget.Product_Category,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: Responsive.w(0.046),
             fontWeight: FontWeight.w600,
             color: ConstColor.normalBlack,
           ),
@@ -65,7 +68,7 @@ class _ProductListScreenState extends State<ProductListScreen>
       ),
 
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(Responsive.w(0.037)),
         child: Column(
           children: [
             Expanded(
@@ -103,9 +106,9 @@ class _ProductListScreenState extends State<ProductListScreen>
 
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: 18,
-                        crossAxisSpacing: 14,
-                        childAspectRatio: 0.65,
+                        mainAxisSpacing: Responsive.h(0.015),
+                        crossAxisSpacing: Responsive.w(0.032),
+                        childAspectRatio: 0.525,
                       ),
 
                       itemBuilder: (context, index) {

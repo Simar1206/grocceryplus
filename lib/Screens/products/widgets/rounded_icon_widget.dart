@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class RoundedIconWidget extends StatelessWidget {
@@ -18,17 +19,21 @@ class RoundedIconWidget extends StatelessWidget {
     return GestureDetector(
       onTap: iconPress,
       child: Padding(
-        padding: const EdgeInsets.only(right: 10.0),
+        padding: EdgeInsets.symmetric(
+          horizontal: Responsive.w(0.011),
+          vertical: Responsive.h(0.005),
+        ),
         child: Container(
-          //margin: EdgeInsets.all(2),
-          padding: EdgeInsets.all(8),
+          margin: EdgeInsets.all(Responsive.w(0.004)),
+          padding: EdgeInsets.all(Responsive.w(0.018)),
           decoration: BoxDecoration(
-            
             color: ConstColor.WhiteColor,
             borderRadius: BorderRadius.circular(100),
-            border: Border.all(color: ConstColor.GreyColor.withValues(alpha: 0.25)),
+            border: Border.all(
+              color: ConstColor.GreyColor.withValues(alpha: 0.25),
+            ),
           ),
-          child: Icon(icon, size: 24, color: color),
+          child: Icon(icon, size: Responsive.w(0.05), color: color),
         ),
       ),
     );
