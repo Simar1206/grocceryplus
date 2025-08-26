@@ -44,6 +44,8 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationWidget(),
 
@@ -348,6 +350,7 @@ class HeaderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return GestureDetector(
       onTap: onPress,
       child: Padding(

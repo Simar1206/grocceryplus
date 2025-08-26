@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocceryplus/firebase/repository.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/action_button_widget.dart';
 import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
@@ -63,6 +64,7 @@ class _LoginPage extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return Scaffold(
       appBar: AppBar(elevation: 0),
 

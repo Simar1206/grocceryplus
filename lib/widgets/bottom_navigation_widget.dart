@@ -5,6 +5,7 @@ import 'package:grocceryplus/Screens/cart/my_bag.dart';
 import 'package:grocceryplus/Screens/category/category_page.dart';
 import 'package:grocceryplus/Screens/home/homepage.dart';
 import 'package:grocceryplus/Screens/settings/settings_page.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class BottomNavigationWidget extends StatelessWidget {
@@ -24,18 +25,23 @@ class BottomNavigationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-
       () => Container(
         color: ConstColor.WhiteColor,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+          padding: EdgeInsets.symmetric(
+            horizontal: Responsive.w(0.02),
+            vertical: Responsive.h(0.02),
+          ),
           child: GNav(
-            gap: 8,
+            gap: Responsive.w(0.02),
             backgroundColor: ConstColor.WhiteColor,
             color: Colors.grey.shade700,
             activeColor: ConstColor.WhiteColor,
             tabBackgroundColor: ConstColor.DailyPlusGreen,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: EdgeInsets.symmetric(
+              horizontal: Responsive.w(0.02),
+              vertical: Responsive.w(0.02),
+            ),
             selectedIndex: navigationController.selectedValue.value,
             onTabChange: (index) {
               navigationController.selectedValue.value = index;
@@ -50,71 +56,6 @@ class BottomNavigationWidget extends StatelessWidget {
           ),
         ),
       ),
-
-
-
-      // () => NavigationBar(
-      //   //indicatorShape:
-      //   indicatorColor: ConstColor.DailyPlusGreen,
-
-      //   maintainBottomViewPadding: false,
-
-      //   backgroundColor: ConstColor.WhiteColor,
-      //   elevation: 0,
-
-      //   //height: 60,
-      //   selectedIndex: navigationController.selectedValue.value,
-      //   onDestinationSelected: (index) {
-      //     navigationController.selectedValue.value = index;
-      //     Get.off(ScreensList[index]);
-      //   },
-      //   destinations: [
-      //     NavigationDestination(
-      //       icon: Icon(Icons.home_outlined, size: 25),
-
-      //       selectedIcon: Icon(
-      //         Icons.home_outlined,
-      //         size: 25,
-      //         color: ConstColor.WhiteColor,
-      //       ),
-
-      //       label: 'Home',
-      //     ),
-      //     NavigationDestination(
-      //       icon: Icon(Icons.category_outlined, size: 25),
-
-      //       selectedIcon: Icon(
-      //         Icons.category_outlined,
-      //         size: 25,
-      //         color: ConstColor.WhiteColor,
-      //       ),
-
-      //       label: 'Categories',
-      //     ),
-      //     NavigationDestination(
-      //       icon: Icon(Icons.shopping_bag_outlined, size: 25),
-
-      //       selectedIcon: Icon(
-      //         Icons.shopping_bag_outlined,
-      //         size: 25,
-      //         color: ConstColor.WhiteColor,
-      //       ),
-
-      //       label: 'Bag',
-      //     ),
-      //     NavigationDestination(
-      //       icon: Icon(Icons.menu_outlined, size: 25),
-
-      //       selectedIcon: Icon(
-      //         Icons.menu_outlined,
-      //         size: 25,
-      //         color: ConstColor.WhiteColor,
-      //       ),
-
-      //       label: 'Menu',
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

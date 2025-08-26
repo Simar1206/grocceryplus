@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grocceryplus/Screens/home/homepage.dart';
 import 'package:grocceryplus/Screens/navigation/select_location_page.dart';
-import 'package:grocceryplus/Screens/products/product_details_page.dart';
-import 'package:grocceryplus/Screens/products/product_list_screen.dart';
 import 'package:grocceryplus/Screens/settings/settings_page.dart';
 import 'package:grocceryplus/auth/ForgotPassword/forgot_pass_main_screen.dart';
 
@@ -27,7 +25,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
-      home: Homepage(),
+      home: LoginPage(),
 
       routes: {
         '/register_page': (context) => const RegisterPage(),

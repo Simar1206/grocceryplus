@@ -38,6 +38,7 @@
 
 //   @override
 //   Widget build(BuildContext context) {
+// Responsive.init(context);
 //     final maskedphoneNumber = widget.phoneNumber.replaceRange(3, 8, 'XXXXX');
 
 //     return Scaffold(

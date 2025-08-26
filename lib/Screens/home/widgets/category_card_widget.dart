@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class CategoryCardWidget extends StatelessWidget {
@@ -25,17 +26,23 @@ class CategoryCardWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(Category_image, height: 111, width: 143,),
+            Image.asset(
+              Category_image,
+              height: Responsive.h(0.12),
+              width: Responsive.w(0.33),
+            ),
 
-            const SizedBox(height: 10),
+            SizedBox(height: Responsive.h(0.01)),
 
-            Text(
-              //textAlign: TextAlign.end,
-              Category_title,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: ConstColor.normalBlack,
+            Flexible(
+              child: Text(
+                textAlign: TextAlign.justify,
+                Category_title,
+                style: TextStyle(
+                  fontSize: Responsive.fs(0.035),
+                  fontWeight: FontWeight.w500,
+                  color: ConstColor.normalBlack,
+                ),
               ),
             ),
           ],

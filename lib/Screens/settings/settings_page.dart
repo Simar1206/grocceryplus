@@ -6,6 +6,7 @@ import 'package:grocceryplus/Screens/settings/widgets/horizontal_tabar_widget.da
 import 'package:grocceryplus/Screens/settings/widgets/information_list_widget.dart';
 import 'package:grocceryplus/Screens/settings/widgets/logout_button_widget.dart';
 import 'package:grocceryplus/Screens/settings/widgets/profile_widget.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -23,7 +24,7 @@ class SettingsPage extends StatelessWidget {
         title: Text(
           'Settings',
           style: TextStyle(
-            fontSize: 20,
+            fontSize: Responsive.fs(0.046),
             fontWeight: FontWeight.w600,
             color: ConstColor.mediumBlack,
           ),
@@ -32,7 +33,7 @@ class SettingsPage extends StatelessWidget {
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(Responsive.w(0.037)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -41,47 +42,48 @@ class SettingsPage extends StatelessWidget {
                 Phone_number: usr!.phoneNumber,
                 user_name: usr!.displayName,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: Responsive.h(0.021)),
               //* ListView blocks
               HorizontalTabarWidget(),
-              const SizedBox(height: 20),
+              SizedBox(height: Responsive.h(0.021)),
               //giftCard
               CashGiftCardWidget(),
 
-              const SizedBox(height: 10),
+              SizedBox(height: Responsive.h(0.01)),
 
               //information Panel:
               Text(
                 'Your Information',
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: Responsive.fs(0.034),
                   fontWeight: FontWeight.w600,
                   color: ConstColor.BlackColor,
                 ),
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: Responsive.h(0.005)),
+              
               InformationListWidget(),
 
-              const SizedBox(height: 10),
+              SizedBox(height: Responsive.h(0.01)),
 
               //Secondary information Panel:
               Text(
                 'Other Information',
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: Responsive.fs(0.034),
                   fontWeight: FontWeight.w600,
                   color: ConstColor.BlackColor,
                 ),
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: Responsive.h(0.005)),
               InformationListWidgetSecondary(),
 
-              const SizedBox(height: 20,),
+              SizedBox(height: Responsive.h(0.021)),
 
               //*logout Button:
-             LogoutButtonWidget(),
+              LogoutButtonWidget(),
 
-             const SizedBox(height: 20,),
+              SizedBox(height: Responsive.h(0.021)),
             ],
           ),
         ),

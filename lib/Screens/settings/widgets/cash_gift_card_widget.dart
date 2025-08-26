@@ -1,5 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class CashGiftCardWidget extends StatelessWidget {
@@ -8,7 +9,7 @@ class CashGiftCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(Responsive.w(0.018)),
       decoration: BoxDecoration(
         color: ConstColor.DailyPlusGreenLight.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(15),
@@ -23,12 +24,15 @@ class CashGiftCardWidget extends StatelessWidget {
               //*icon with text
               Row(
                 children: [
-                  Icon(Icons.account_balance_wallet_outlined, size: 24),
-                  const SizedBox(width: 10),
+                  Icon(
+                    Icons.account_balance_wallet_outlined,
+                    size: Responsive.w(0.055),
+                  ),
+                  SizedBox(width: Responsive.w(0.023)),
                   Text(
                     'GroccesyPlus Cash & Gift Card',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: Responsive.fs(0.03),
                       color: ConstColor.BlackColor,
                       fontWeight: FontWeight.w600,
                     ),
@@ -43,15 +47,15 @@ class CashGiftCardWidget extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 12),
+           SizedBox(height: Responsive.w(0.012)),
 
           DottedLine(
-            lineThickness: 1,
+            lineThickness: Responsive.w(0.002),
             lineLength: double.infinity,
             dashColor: ConstColor.DailyPlusGreen,
           ),
 
-          const SizedBox(height: 10),
+           SizedBox(height: Responsive.w(0.015)),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,16 +66,16 @@ class CashGiftCardWidget extends StatelessWidget {
                   Text(
                     'Available Balance',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: Responsive.fs(0.03),
                       color: ConstColor.mediumBlack,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(width: 5),
+                  SizedBox(width: Responsive.w(0.011)),
                   Text(
                     '\$0',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: Responsive.fs(0.034),
                       color: ConstColor.BlackColor,
                       fontWeight: FontWeight.w700,
                     ),
@@ -80,7 +84,7 @@ class CashGiftCardWidget extends StatelessWidget {
               ),
               //*add balacnce button:
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(Responsive.w(0.023)),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: ConstColor.GreyColor),
@@ -89,7 +93,7 @@ class CashGiftCardWidget extends StatelessWidget {
                 child: Text(
                   'Add Balance',
                   style: TextStyle(
-                    fontSize: 10,
+                    fontSize: Responsive.w(0.023),
                     color: ConstColor.BlackColor,
                     fontWeight: FontWeight.w600,
                   ),

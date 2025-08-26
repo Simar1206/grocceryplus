@@ -54,7 +54,7 @@ Future<void> UploadProductsToFireStore() async {
 
   for (final products in productList) {
     //* to upstate the products we use set() along with merge = true:
-    final ProductUpset = await FirebaseFirestore.instance
+    final ProductUpset = FirebaseFirestore.instance
         .collection('products')
         .doc(products.Product_Name);
 

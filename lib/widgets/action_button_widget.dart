@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class ActionButtonWidget extends StatelessWidget {
@@ -15,9 +16,9 @@ class ActionButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(Responsive.w(0.046)),
       child: SizedBox(
-        height: 48,
+        height: Responsive.h(0.051),
         child: TextButton(
           style: ButtonStyle(
             shape: WidgetStatePropertyAll(
@@ -30,7 +31,7 @@ class ActionButtonWidget extends StatelessWidget {
               TextStyle(
                 color: ConstColor.WhiteColor,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
+                fontSize: Responsive.fs(0.037),
               ),
             ),
             backgroundColor: WidgetStatePropertyAll(ConstColor.DailyPlusGreen),
@@ -45,7 +46,7 @@ class ActionButtonWidget extends StatelessWidget {
                 ButtonText,
                 style: TextStyle(color: ConstColor.WhiteColor),
               ),
-              Icon(icon, size: 24),
+              Icon(icon, size: Responsive.w(0.055)),
             ],
           ),
         ),

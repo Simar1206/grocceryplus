@@ -1,4 +1,3 @@
-
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'package:grocceryplus/firebase/repository.dart';
@@ -32,6 +31,7 @@
 
 //   @override
 //   Widget build(BuildContext context) {
+//Responsive.init(context);
 //     return Scaffold(
 //       bottomSheet: ActionButtonWidget(
 //         onPress: () async {

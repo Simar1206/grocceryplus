@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect.dart';
 
@@ -12,6 +13,7 @@ import 'package:grocceryplus/widgets/action_button_widget.dart';
 
 import 'package:grocceryplus/widgets/animated_button_for_cart.dart';
 import 'package:grocceryplus/widgets/is_Veg_button_widget.dart';
+import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
 import 'package:grocceryplus/widgets/rating_bar_widget.dart';
 
 class ProductDetailsPage extends StatefulWidget {
@@ -25,7 +27,7 @@ class ProductDetailsPage extends StatefulWidget {
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   //*Scroll Controller along with ISScrolled:
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   bool _isScrolled = false;
 
   //*View More Logic:
@@ -506,6 +508,82 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               ),
 
               //* Similar Product Logic:
+              Expanded(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('products')
+                      .where(
+                        'Product_Category',
+                        isEqualTo: widget.product.Product_Category,
+                      )
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return ProgressIndicatorWidget();
+                    }
+                    if (snapshot.hasError) {
+                      return Center(child: Text("Error Occured with Snapshot"));
+                    }
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return Center(child: Text("SnapShot is Empty"));
+                    }
+
+                    final similarproducts = snapshot.data!.docs.where((docs) {
+                      final data = docs.data() as Map<String, dynamic>;
+                      return data['Product_name'] !=
+                          widget.product.Product_Name;
+                    }).toList();
+
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        final productdata =
+                            similarproducts[index].data()
+                                as Map<String, dynamic>;
+                        final productModel = ProductsModel.fromMap(productdata);
+
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: ConstColor.WhiteColor,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: ConstColor.shadowColor,
+                            ),
+                            child: ListView(
+                              children: [
+                                ListTile(
+                                  leading: Image.asset(
+                                    productModel.Product_Image,
+                                    fit: BoxFit.contain,
+                                  ),
+                                  title: Text(
+                                    productModel.Product_quantity,
+                                    style: TextStyle(
+                                      fontSize: Responsive.fs(0.037),
+                                      color: ConstColor.BlackColor,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    productModel.Product_price.toString(),
+                                    style: TextStyle(
+                                      fontSize: Responsive.fs(0.04),
+                                      color: ConstColor.AccentColor,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

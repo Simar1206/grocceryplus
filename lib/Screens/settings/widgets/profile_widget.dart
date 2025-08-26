@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -12,15 +13,19 @@ class ProfileWidget extends StatelessWidget {
     return Row(
       children: [
         Container(
-          padding: EdgeInsets.all(2),
+          padding: EdgeInsets.all(Responsive.w(0.002)),
           decoration: BoxDecoration(
             color: ConstColor.DailyPlusGreenLight.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(100),
           ),
-          child: Icon(size: 50, Icons.person, color: ConstColor.DailyPlusGreen),
+          child: Icon(
+            size: Responsive.w(0.12),
+            Icons.person,
+            color: ConstColor.DailyPlusGreen,
+          ),
         ),
 
-        const SizedBox(width: 11),
+        SizedBox(width: Responsive.w(0.025)),
 
         //*Text
         Column(
@@ -29,14 +34,19 @@ class ProfileWidget extends StatelessWidget {
             //*to display two different text style
             Text(
               user_name ?? '',
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: Responsive.fs(0.04),
+                fontWeight: FontWeight.w600,
+              ),
             ),
+
+            SizedBox(height: Responsive.w(0.0023)),
 
             Text(
               Phone_number ?? '8657 68145',
               style: TextStyle(
                 color: ConstColor.mediumBlack,
-                fontSize: 10,
+                fontSize: Responsive.w(0.023),
                 fontWeight: FontWeight.w500,
               ),
             ),

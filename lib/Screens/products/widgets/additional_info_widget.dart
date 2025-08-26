@@ -6,7 +6,7 @@ class AdditionalInfoWidget extends StatelessWidget {
   final IconData? icon;
   final String text;
   final VoidCallback onPress;
-  AdditionalInfoWidget({
+  const AdditionalInfoWidget({
     super.key,
     this.icon,
     required this.text,

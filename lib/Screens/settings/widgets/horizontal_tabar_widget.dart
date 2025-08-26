@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class HorizontalTabarWidget extends StatelessWidget {
@@ -45,27 +46,35 @@ class SingleListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 100,
+        height: Responsive.h(0.1),
         //width: 114,
-        margin: const EdgeInsets.only(right: 12),
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        margin: EdgeInsets.only(right: Responsive.w(0.027)),
+        padding: EdgeInsets.symmetric(vertical: Responsive.w(0.01)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: ConstColor.WhiteColor,
           boxShadow: [
-            BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
           ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 24, color: ConstColor.normalBlack),
-            const SizedBox(height: 5),
+            Icon(
+              icon,
+              size: Responsive.w(0.055),
+              color: ConstColor.normalBlack,
+            ),
+            SizedBox(height: Responsive.w(0.01)),
             Text(
               text,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 13,
+                fontSize: Responsive.fs(0.03),
                 fontWeight: FontWeight.w600,
                 color: ConstColor.mediumBlack,
               ),
