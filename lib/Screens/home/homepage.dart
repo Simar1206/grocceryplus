@@ -58,7 +58,7 @@ class _HomepageState extends State<Homepage> {
               pinned: true,
 
               //floating: true,
-              toolbarHeight: Responsive.h(0.19),
+              toolbarHeight: Responsive.h(0.22),
 
               title: Column(
                 children: [
@@ -190,7 +190,10 @@ class _HomepageState extends State<Homepage> {
           ];
         },
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: Responsive.w(0.037)),
+          padding: EdgeInsets.symmetric(
+            horizontal: Responsive.w(0.037),
+            vertical: Responsive.w(0.035),
+          ),
           child: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('category')
@@ -270,7 +273,7 @@ class TopBarWIdget extends StatelessWidget {
               borderRadius: BorderRadius.circular(100),
             ),
             child: Icon(
-              size: Responsive.fs(0.056),
+              size: Responsive.fs(0.06),
               Icons.person,
               color: ConstColor.DailyPlusGreenLight,
             ),

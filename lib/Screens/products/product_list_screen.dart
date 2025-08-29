@@ -41,6 +41,13 @@ class _ProductListScreenState extends State<ProductListScreen>
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Responsive.init(context);
 

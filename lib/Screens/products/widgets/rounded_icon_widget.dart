@@ -20,11 +20,11 @@ class RoundedIconWidget extends StatelessWidget {
       onTap: iconPress,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: Responsive.w(0.011),
+          horizontal: Responsive.w(0.01),
           vertical: Responsive.h(0.005),
         ),
         child: Container(
-          margin: EdgeInsets.all(Responsive.w(0.004)),
+          //margin: EdgeInsets.all(Responsive.w(0.004)),
           padding: EdgeInsets.all(Responsive.w(0.018)),
           decoration: BoxDecoration(
             color: ConstColor.WhiteColor,
@@ -33,7 +33,7 @@ class RoundedIconWidget extends StatelessWidget {
               color: ConstColor.GreyColor.withValues(alpha: 0.25),
             ),
           ),
-          child: Icon(icon, size: Responsive.w(0.05), color: color),
+          child: Icon(icon, size: Responsive.w(0.065), color: color),
         ),
       ),
     );

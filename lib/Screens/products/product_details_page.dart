@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect.dart';
 
 import 'package:grocceryplus/Screens/products/product_list_screen.dart';
 import 'package:grocceryplus/Screens/products/widgets/additional_info_widget.dart';
 import 'package:grocceryplus/Screens/products/widgets/discription_widget.dart';
+import 'package:grocceryplus/Screens/products/widgets/highlights_widget.dart';
 import 'package:grocceryplus/Screens/products/widgets/rounded_icon_widget.dart';
+import 'package:grocceryplus/Screens/products/widgets/view_similar_widget.dart';
 import 'package:grocceryplus/models/products_model.dart';
 import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
-import 'package:grocceryplus/widgets/action_button_widget.dart';
 
 import 'package:grocceryplus/widgets/animated_button_for_cart.dart';
 import 'package:grocceryplus/widgets/is_Veg_button_widget.dart';
@@ -28,6 +28,7 @@ class ProductDetailsPage extends StatefulWidget {
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
   //*Scroll Controller along with ISScrolled:
   final ScrollController _scrollController = ScrollController();
+
   bool _isScrolled = false;
 
   //*View More Logic:
@@ -49,6 +50,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -270,6 +278,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
               SizedBox(height: Responsive.h(0.025)),
 
+              //*Addtional Information Widget:
               Container(
                 padding: EdgeInsets.all(Responsive.w(0.034)),
                 decoration: BoxDecoration(
@@ -280,7 +289,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     AdditionalInfoWidget(
-                      text: 'No Returns Or Exchange',
+                      text: 'No Returns',
                       onPress: () {},
                       icon: Icons.cancel_outlined,
                     ),
@@ -298,208 +307,23 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
               SizedBox(height: Responsive.h(0.025)),
 
-              //*Highlights Informtion.
-              //*white container
-              Flexible(
-                child: Container(
-                  padding: EdgeInsets.all(Responsive.w(0.034)),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: ConstColor.WhiteColor,
-                  ),
-                  //*shadow container Inner
-                  child: Container(
-                    padding: EdgeInsets.all(Responsive.w(0.034)),
-                    decoration: BoxDecoration(
-                      color: ConstColor.shadowColor,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Highlights',
-                            style: TextStyle(
-                              fontSize: Responsive.fs(0.034),
-                              color: ConstColor.BlackColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-
-                          SizedBox(height: Responsive.h(0.01)),
-
-                          //*always Visible
-                          DiscriptionWidget(
-                            type: 'Brand',
-                            discription: widget.product.Product_Name,
-                          ),
-
-                          SizedBox(height: Responsive.h(0.01)),
-
-                          DiscriptionWidget(
-                            type: 'Product Type',
-                            discription: widget.product.Product_Category,
-                          ),
-
-                          SizedBox(height: Responsive.h(0.01)),
-
-                          AnimatedCrossFade(
-                            firstCurve: Curves.easeIn,
-                            secondCurve: Curves.easeOut,
-                            duration: const Duration(milliseconds: 400),
-
-                            crossFadeState: clickedViewMore
-                                ? CrossFadeState.showSecond
-                                : CrossFadeState.showFirst,
-
-                            firstChild: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  clickedViewMore = true;
-                                });
-                              },
-
-                              //*view button to show the rest :
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: Responsive.w(0.027),
-                                  vertical: Responsive.h(0.008),
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(
-                                    color: ConstColor.GreyColor.withValues(
-                                      alpha: 0.15,
-                                    ),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'View More',
-                                      style: TextStyle(
-                                        fontSize: Responsive.fs(0.027),
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.pink,
-                                      ),
-                                    ),
-                                    SizedBox(width: Responsive.w(0.011)),
-                                    Icon(
-                                      Icons.keyboard_arrow_down_outlined,
-                                      color: Colors.pink,
-                                      size: Responsive.fs(0.055),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-
-                            secondChild: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(width: Responsive.w(0.011)),
-
-                                // your repeated widgets (use List.generate for cleaner code)
-                                DiscriptionWidget(
-                                  type: 'Weight',
-                                  discription: widget.product.Product_quantity,
-                                ),
-
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(
-                                  type: 'Deitary  preference',
-                                  widget: IsVegButtonWidget(
-                                    IsVeg: widget.product.IsVeg,
-                                  ),
-                                ),
-
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(
-                                  type: 'Key Features',
-                                  discription:
-                                      widget.product.Product_description,
-                                ),
-
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(type: 'Imported'),
-
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(type: 'Fssai Licensce'),
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(
-                                  type: 'Nutrition Information',
-                                ),
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(type: 'Packaging Type'),
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(type: 'Imported'),
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(type: 'Fssai Licensce'),
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(
-                                  type: 'Rating',
-                                  discription: widget.product.Product_rating
-                                      .toString(),
-                                ),
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                DiscriptionWidget(
-                                  type: 'Price',
-                                  discription: widget.product.Product_price
-                                      .toString(),
-                                ),
-                                SizedBox(height: Responsive.h(0.01)),
-
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() => clickedViewMore = false);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'View Less',
-                                        style: TextStyle(
-                                          fontSize: Responsive.fs(0.027),
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.pink,
-                                        ),
-                                      ),
-                                      SizedBox(width: Responsive.w(0.011)),
-                                      Icon(
-                                        Icons.keyboard_arrow_up_outlined,
-                                        color: Colors.pink,
-                                        size: Responsive.fs(0.055),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+              //*Highlights Informtion:
+              SingleChildScrollView(
+                child: HighlightsWidget(
+                  product: widget.product,
+                  clickedViewMore: clickedViewMore,
+                  onToggle: () {
+                    setState(() {
+                      clickedViewMore = !clickedViewMore;
+                    });
+                  },
                 ),
               ),
 
               SizedBox(height: Responsive.h(0.04)),
 
               Text(
-                'You can also check this items',
+                'View Similar',
                 style: TextStyle(
                   fontSize: Responsive.w(0.037),
                   fontWeight: FontWeight.w500,
@@ -507,83 +331,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ),
 
+              SizedBox(height: 5),
+
               //* Similar Product Logic:
-              Expanded(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('products')
-                      .where(
-                        'Product_Category',
-                        isEqualTo: widget.product.Product_Category,
-                      )
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return ProgressIndicatorWidget();
-                    }
-                    if (snapshot.hasError) {
-                      return Center(child: Text("Error Occured with Snapshot"));
-                    }
-                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                      return Center(child: Text("SnapShot is Empty"));
-                    }
-
-                    final similarproducts = snapshot.data!.docs.where((docs) {
-                      final data = docs.data() as Map<String, dynamic>;
-                      return data['Product_name'] !=
-                          widget.product.Product_Name;
-                    }).toList();
-
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        final productdata =
-                            similarproducts[index].data()
-                                as Map<String, dynamic>;
-                        final productModel = ProductsModel.fromMap(productdata);
-
-                        return Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: ConstColor.WhiteColor,
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: ConstColor.shadowColor,
-                            ),
-                            child: ListView(
-                              children: [
-                                ListTile(
-                                  leading: Image.asset(
-                                    productModel.Product_Image,
-                                    fit: BoxFit.contain,
-                                  ),
-                                  title: Text(
-                                    productModel.Product_quantity,
-                                    style: TextStyle(
-                                      fontSize: Responsive.fs(0.037),
-                                      color: ConstColor.BlackColor,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  subtitle: Text(
-                                    productModel.Product_price.toString(),
-                                    style: TextStyle(
-                                      fontSize: Responsive.fs(0.04),
-                                      color: ConstColor.AccentColor,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
+              //Expanded(child: ViewSimilarWidget(product: widget.product)),
+              SizedBox(height: 50),
             ],
           ),
         ),

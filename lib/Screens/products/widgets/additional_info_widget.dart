@@ -20,7 +20,7 @@ class AdditionalInfoWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onPress,
       child: Container(
-        height: Responsive.h(0.13),
+        height: Responsive.h(0.15),
         width: Responsive.w(0.40),
         padding: EdgeInsets.all(Responsive.w(0.025)),
         decoration: BoxDecoration(
