@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocceryplus/Screens/cart/cart_controller.dart';
 import 'package:grocceryplus/Screens/home/homepage.dart';
 import 'package:grocceryplus/Screens/navigation/select_location_page.dart';
 import 'package:grocceryplus/Screens/settings/settings_page.dart';
@@ -14,6 +15,10 @@ import 'package:grocceryplus/firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  //* GETX Controllers:
+  Get.put(CartController(), permanent: true);
+  
   runApp(const MyApp());
 }
 

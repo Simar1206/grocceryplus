@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/state_manager.dart';
+import 'package:grocceryplus/Screens/cart/my_bag.dart';
 import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
@@ -37,8 +38,6 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     // Instead of hardcoding, calculate based on screen width
     final collapsedWidth = Responsive.fs(0.88); // 90% of screen
     final expandedWidth = Responsive.fs(0.44); // 45% of screen
@@ -112,6 +111,10 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
                 child: GestureDetector(
                   onTap: () {
                     // TODO: Navigate to cart
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyBag()),
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

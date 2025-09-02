@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocceryplus/Screens/cart/my_bag.dart';
 import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/add_to_bag_button_widget.dart';
@@ -122,7 +123,13 @@ class ProductCardWidget extends StatelessWidget {
             //button
             AddToBagButtonWidget(
               controller: bagController,
-              onPress: () {},
+              onPress: () {
+                //TODO: Navigate to cart Page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyBag()),
+                );
+              },
               buttonText: 'Add to Bag',
               icon: Icons.shopping_bag,
             ),

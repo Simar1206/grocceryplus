@@ -115,7 +115,7 @@ class _ProductListScreenState extends State<ProductListScreen>
                         crossAxisCount: 2,
                         mainAxisSpacing: Responsive.h(0.015),
                         crossAxisSpacing: Responsive.w(0.032),
-                        childAspectRatio: 0.525,
+                        childAspectRatio: 0.5,
                       ),
 
                       itemBuilder: (context, index) {
