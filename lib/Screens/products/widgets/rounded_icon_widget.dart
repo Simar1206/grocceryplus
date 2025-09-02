@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
-class RoundedIconWidget extends StatelessWidget {
+class CircularAvatarWidget extends StatelessWidget {
   final IconData? icon;
   final Color color;
   final VoidCallback iconPress;
 
-  const RoundedIconWidget({
+  const CircularAvatarWidget({
     super.key,
     required this.icon,
     required this.color,

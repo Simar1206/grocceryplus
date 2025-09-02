@@ -53,7 +53,7 @@ class _ProductListScreenState extends State<ProductListScreen>
 
     return Scaffold(
       appBar: AppBar(
-        leading: RoundedIconWidget(
+        leading: CircularAvatarWidget(
           icon: Icons.arrow_back_ios_new,
           color: ConstColor.BlackColor,
           iconPress: () {

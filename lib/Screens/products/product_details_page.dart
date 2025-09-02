@@ -1,19 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:grocceryplus/Screens/products/product_list_screen.dart';
 import 'package:grocceryplus/Screens/products/widgets/additional_info_widget.dart';
-import 'package:grocceryplus/Screens/products/widgets/discription_widget.dart';
 import 'package:grocceryplus/Screens/products/widgets/highlights_widget.dart';
 import 'package:grocceryplus/Screens/products/widgets/rounded_icon_widget.dart';
-import 'package:grocceryplus/Screens/products/widgets/view_similar_widget.dart';
 import 'package:grocceryplus/models/products_model.dart';
 import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 import 'package:grocceryplus/widgets/animated_button_for_cart.dart';
 import 'package:grocceryplus/widgets/is_Veg_button_widget.dart';
-import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
 import 'package:grocceryplus/widgets/rating_bar_widget.dart';
 
 class ProductDetailsPage extends StatefulWidget {
@@ -67,7 +63,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           vertical: Responsive.h(0.03),
           horizontal: Responsive.w(0.046),
         ),
-        child: AnimatedButtonForCart(),
+        child: AnimatedButtonForCart(product: widget.product),
       ),
       body: NestedScrollView(
         controller: _scrollController,
@@ -183,20 +179,20 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               //* Action Icons:
               actions: [
                 //*like
-                RoundedIconWidget(
+                CircularAvatarWidget(
                   icon: Icons.favorite_outline,
 
                   color: ConstColor.BlackColor,
                   iconPress: () {},
                 ),
                 //*search
-                RoundedIconWidget(
+                CircularAvatarWidget(
                   icon: Icons.search_rounded,
                   color: ConstColor.BlackColor,
                   iconPress: () {},
                 ),
                 //*download
-                RoundedIconWidget(
+                CircularAvatarWidget(
                   icon: Icons.upload_outlined,
                   color: ConstColor.BlackColor,
                   iconPress: () {},
@@ -308,15 +304,17 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               SizedBox(height: Responsive.h(0.025)),
 
               //*Highlights Informtion:
-              SingleChildScrollView(
-                child: HighlightsWidget(
-                  product: widget.product,
-                  clickedViewMore: clickedViewMore,
-                  onToggle: () {
-                    setState(() {
-                      clickedViewMore = !clickedViewMore;
-                    });
-                  },
+              Flexible(
+                child: SingleChildScrollView(
+                  child: HighlightsWidget(
+                    product: widget.product,
+                    clickedViewMore: clickedViewMore,
+                    onToggle: () {
+                      setState(() {
+                        clickedViewMore = !clickedViewMore;
+                      });
+                    },
+                  ),
                 ),
               ),
 

@@ -30,7 +30,7 @@ class BottomNavigationWidget extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: Responsive.w(0.02),
-            vertical: Responsive.h(0.02),
+            vertical: Responsive.h(0.025),
           ),
           child: GNav(
             gap: Responsive.w(0.02),
@@ -39,8 +39,8 @@ class BottomNavigationWidget extends StatelessWidget {
             activeColor: ConstColor.WhiteColor,
             tabBackgroundColor: ConstColor.DailyPlusGreen,
             padding: EdgeInsets.symmetric(
-              horizontal: Responsive.w(0.02),
-              vertical: Responsive.w(0.02),
+              horizontal: Responsive.w(0.04),
+              vertical: Responsive.w(0.025),
             ),
             selectedIndex: navigationController.selectedValue.value,
             onTabChange: (index) {
@@ -48,10 +48,30 @@ class BottomNavigationWidget extends StatelessWidget {
               Get.off(ScreensList[index]);
             },
             tabs: const [
-              GButton(icon: Icons.home_outlined, text: "Home"),
-              GButton(icon: Icons.category_outlined, text: "Categories"),
-              GButton(icon: Icons.shopping_bag_outlined, text: "Bag"),
-              GButton(icon: Icons.menu_outlined, text: "Menu"),
+              GButton(
+                icon: Icons.home_outlined,
+                text: "Home",
+                iconSize: 30,
+                haptic: true,
+              ),
+              GButton(
+                icon: Icons.category_outlined,
+                text: "Categories",
+                iconSize: 30,
+                haptic: true,
+              ),
+              GButton(
+                icon: Icons.shopping_bag_outlined,
+                text: "Bag",
+                iconSize: 30,
+                haptic: true,
+              ),
+              GButton(
+                icon: Icons.menu_outlined,
+                text: "Menu",
+                iconSize: 30,
+                haptic: true,
+              ),
             ],
           ),
         ),

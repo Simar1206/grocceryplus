@@ -7,17 +7,16 @@ class CartController extends GetxController {
 
   //*Add to Cart
 
-  void addtoCart(ProductsModel products) {
+  void addtoCart(ProductsModel products, {int quantity = 1}) {
     try {
-      if (cartItemList.containsKey(products)) {
-        cartItemList[products] = (cartItemList[products] ?? 0) + 1;
-      } else {
-        cartItemList[products] = 1;
-      }
+      // if (cartItemList.containsKey(products)) {
+      //   cartItemList[products] = (cartItemList[products] ?? 0) + quantity;
+      // } else {
+      cartItemList[products] = quantity;
+      // }
     } catch (e) {
       Get.snackbar('Exception Occured Cannot perform Add to Cart', '$e');
     }
-    Get.snackbar(products.Product_Name, 'Has been Added from the Cart');
   }
 
   //*Remove from Cart
@@ -34,8 +33,6 @@ class CartController extends GetxController {
     } catch (e) {
       Get.snackbar('Exception Occured Cannot Perform Remove from Cart', '$e');
     }
-
-    Get.snackbar(products.Product_Name, 'Has been Removed from the Cart');
   }
 
   //*Inc Quantity
@@ -70,15 +67,15 @@ class CartController extends GetxController {
 
   double get totalCost {
     double totalCost = 0.0;
-    cartItemList.forEach((product, qty ) {
-      totalCost += product.Product_price * qty;
+    cartItemList.forEach((product, qty) {
+      totalCost += (product.Product_price * qty) + 50;
     });
     return totalCost;
   }
 
   //*Get Total Quanitity
 
-  double get  totalQuantity {
+  double get totalQuantity {
     int totalQuantity = 0;
     cartItemList.forEach((product, qty) {
       totalQuantity += qty;

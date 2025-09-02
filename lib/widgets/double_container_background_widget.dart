@@ -8,14 +8,16 @@ class DoubleContainerBackgroundWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: ConstColor.WhiteColor
+        color: ConstColor.WhiteColor,
       ),
       child: Container(
+        padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: ConstColor.shadowColor
+          color: ConstColor.shadowColor,
         ),
         child: widgetUsed,
       ),

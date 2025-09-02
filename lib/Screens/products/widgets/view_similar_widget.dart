@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:grocceryplus/models/products_model.dart';
-import 'package:grocceryplus/theme/const/responsive.dart';
-import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/progress_indicator_widget.dart';
 
 class ViewSimilarWidget extends StatelessWidget {
