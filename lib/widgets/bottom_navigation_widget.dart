@@ -11,9 +11,8 @@ import 'package:grocceryplus/theme/const_color.dart';
 class BottomNavigationWidget extends StatelessWidget {
   BottomNavigationWidget({super.key});
 
-  final NavigationController navigationController = Get.put(
-    NavigationController(),
-  );
+  final NavigationController navigationController =
+      Get.find<NavigationController>();
 
   final List<Widget> ScreensList = [
     Homepage(),

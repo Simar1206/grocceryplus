@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/state_manager.dart';
-import 'package:grocceryplus/Screens/cart/cart_controller.dart';
+import 'package:grocceryplus/controller/cart_controller.dart';
 import 'package:grocceryplus/Screens/cart/my_bag.dart';
 import 'package:grocceryplus/models/products_model.dart';
 import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
+import 'package:grocceryplus/widgets/bottom_navigation_widget.dart';
 
-class AnimatedButtonController extends GetxController {
-  final currentValue = 1.obs;
-  void Inc() => currentValue.value++;
-  void Dec() {
-    if (currentValue.value > 1) {
-      print(currentValue.value);
-      currentValue.value--;
-    } else {
-      isPressed.value = false;
-    }
-  }
+// class AnimatedButtonController extends GetxController {
+//   final currentValue = 1.obs;
+//   void Inc() => currentValue.value++;
+//   void Dec() {
+//     if (currentValue.value > 1) {
+//       print(currentValue.value);
+//       currentValue.value--;
+//     } else {
+//       isPressed.value = false;
+//     }
+//   }
 
-  final isPressed = false.obs;
+//   final isPressed = false.obs;
 
-  void PushButton() {
-    isPressed.value = true;
-  }
-}
+//   void PushButton() {
+//     isPressed.value = true;
+//   }
+// }
 
 class AnimatedButtonForCart extends StatefulWidget {
   final ProductsModel product;
@@ -35,23 +36,14 @@ class AnimatedButtonForCart extends StatefulWidget {
 }
 
 class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
+  //*Getx animatedButtonController:
   final CartController cartController = Get.find<CartController>();
-
-  late final AnimatedButtonController controller;
+  final NavigationController navigationController =
+      Get.find<NavigationController>();
 
   @override
   void initState() {
     super.initState();
-
-    // unique controller per product
-    controller = Get.put(
-      AnimatedButtonController(),
-      tag: widget.product.Product_Name,
-    );
-
-    final qtyInCart = cartController.cartItemList[widget.product] ?? 1;
-    controller.currentValue.value = qtyInCart;
-    controller.isPressed.value = qtyInCart > 1;
   }
 
   @override
@@ -59,36 +51,47 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
     final collapsedWidth = Responsive.fs(0.88);
     final expandedWidth = Responsive.fs(0.44);
 
-    return Obx(
-      () => Row(
+    return Obx(() {
+      final productIndex = cartController.cartItemList.indexWhere(
+        (e) =>
+            // e.IsVeg == widget.product.IsVeg &&
+            // e.Product_Category == widget.product.Product_Category &&
+            // e.Product_Image == widget.product.Product_Image &&
+            e.Product_Name == widget.product.Product_Name,
+        // e.Product_description == widget.product.Product_description &&
+        // e.Product_price == widget.product.Product_price &&
+        // e.Product_quantity == widget.product.Product_quantity &&
+        // e.Product_rating == widget.product.Product_rating,
+      );
+
+      final hasItem = productIndex != -1;
+
+      return Row(
         children: [
           AnimatedContainer(
             duration: const Duration(milliseconds: 600),
             curve: Curves.easeInOut,
             height: Responsive.h(0.051),
-            width: controller.isPressed.value ? expandedWidth : collapsedWidth,
+            width: hasItem ? expandedWidth : collapsedWidth,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: ConstColor.DailyPlusGreen,
             ),
-            child: controller.isPressed.value
+            child: hasItem
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconButton(
                         onPressed: () {
-                          controller.Dec();
-                          cartController.addtoCart(
-                            widget.product,
-                            quantity: controller.currentValue.value,
-                          );
+                          cartController.decrement(productIndex);
+                          //cartController.addtoCart(widget.product);
                         },
                         icon: const Icon(Icons.remove),
                         color: ConstColor.WhiteColor,
                       ),
                       Obx(
                         () => Text(
-                          controller.currentValue.value.toString(),
+                          "${cartController.cartItemList.elementAt(productIndex).selectedQuantity}",
                           style: TextStyle(
                             color: ConstColor.WhiteColor,
                             fontSize: Responsive.fs(0.04),
@@ -98,11 +101,7 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
                       ),
                       IconButton(
                         onPressed: () {
-                          controller.Inc();
-                          cartController.addtoCart(
-                            widget.product,
-                            quantity: controller.currentValue.value,
-                          );
+                          cartController.addtoCartOrIncrement(widget.product);
                         },
                         icon: const Icon(Icons.add),
                         color: ConstColor.WhiteColor,
@@ -112,11 +111,7 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
                 : Center(
                     child: GestureDetector(
                       onTap: () {
-                        controller.PushButton();
-                        cartController.addtoCart(
-                          widget.product,
-                          quantity: controller.currentValue.value,
-                        );
+                        cartController.addtoCartOrIncrement(widget.product);
                       },
                       child: Text(
                         'Add to Cart',
@@ -132,23 +127,23 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
 
           SizedBox(width: Responsive.w(0.02)),
 
-          if (controller.isPressed.value)
-            AnimatedContainer(
-              height: Responsive.h(0.051),
-              width: expandedWidth,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.pink, width: 2),
-              ),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyBag()),
-                  );
-                },
+          if (hasItem)
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MyBag()),
+                );
+              },
+              child: AnimatedContainer(
+                height: Responsive.h(0.051),
+                width: expandedWidth,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.pink, width: 2),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -169,7 +164,7 @@ class _AnimatedButtonForCartState extends State<AnimatedButtonForCart> {
               ),
             ),
         ],
-      ),
-    );
+      );
+    });
   }
 }

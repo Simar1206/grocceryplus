@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:grocceryplus/Screens/cart/my_bag.dart';
+import 'package:get/get.dart';
+import 'package:grocceryplus/controller/cart_controller.dart';
+
+import 'package:grocceryplus/models/products_model.dart';
 import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/add_to_bag_button_widget.dart';
@@ -7,29 +10,16 @@ import 'package:grocceryplus/widgets/is_Veg_button_widget.dart';
 import 'package:grocceryplus/widgets/rating_bar_widget.dart';
 
 class ProductCardWidget extends StatelessWidget {
-  final String Product_Image;
-  final String Product_name;
-  final int Product_price;
-  final int Product_rating;
-  final String Product_quantity;
-  final bool IsVeg;
+  ProductsModel product;
+
   final VoidCallback onPress;
 
-  const ProductCardWidget({
-    required this.Product_Image,
-    required this.Product_name,
-    required this.Product_price,
-    required this.onPress,
-    super.key,
-    required this.Product_rating,
-    required this.IsVeg,
-    required this.Product_quantity,
-  });
+  ProductCardWidget({required this.product, required this.onPress, super.key});
 
   @override
   Widget build(BuildContext context) {
     //*controller for add to bag defined here:
-    final AddToBagController bagController = AddToBagController();
+    final CartController cartController = Get.find<CartController>();
 
     return GestureDetector(
       onTap: onPress,
@@ -60,8 +50,11 @@ class ProductCardWidget extends StatelessWidget {
                       return MaterialRectArcTween(begin: begin, end: end);
                     },
                     transitionOnUserGestures: true,
-                    tag: '${Product_name}_$Product_Image',
-                    child: Image.asset(Product_Image, fit: BoxFit.contain),
+                    tag: '${product.Product_Name}_${product.Product_Image}',
+                    child: Image.asset(
+                      product.Product_Image,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
@@ -73,12 +66,12 @@ class ProductCardWidget extends StatelessWidget {
             Row(
               children: [
                 //*veg logo
-                IsVegButtonWidget(IsVeg: IsVeg),
+                IsVegButtonWidget(IsVeg: product.IsVeg),
 
                 SizedBox(width: Responsive.w(0.023)),
 
                 Text(
-                  Product_quantity,
+                  product.Product_quantity,
                   style: TextStyle(
                     fontSize: Responsive.fs(0.034),
                     color: ConstColor.normalBlack,
@@ -92,7 +85,7 @@ class ProductCardWidget extends StatelessWidget {
 
             //*product name
             Text(
-              Product_name,
+              product.Product_Name,
               maxLines: 2,
               style: TextStyle(
                 fontSize: Responsive.fs(0.04),
@@ -103,14 +96,14 @@ class ProductCardWidget extends StatelessWidget {
 
             SizedBox(height: Responsive.h(0.005)),
 
-            RatingBarWidget(Product_rating: Product_rating),
+            RatingBarWidget(Product_rating: product.Product_rating),
 
             SizedBox(height: Responsive.h(0.01)),
 
             //price
             Text(
               textAlign: TextAlign.left,
-              '\$$Product_price',
+              '\$${product.Product_price}',
               style: TextStyle(
                 fontSize: Responsive.fs(0.042),
                 fontWeight: FontWeight.w500,
@@ -122,14 +115,15 @@ class ProductCardWidget extends StatelessWidget {
 
             //button
             AddToBagButtonWidget(
-              controller: bagController,
-              onPress: () {
-                //TODO: Navigate to cart Page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyBag()),
-                );
-              },
+              product: product,
+              // onPress: () {
+              //   product.selectedQuantity = product.selectedQuantity + 1;
+              //   cartController.addtoCartOrIncrement(product);
+              //   // Navigator.push(
+              //   //   context,
+              //   //   MaterialPageRoute(builder: (context) => MyBag()),
+              //   // );
+              // },
               buttonText: 'Add to Bag',
               icon: Icons.shopping_bag,
             ),

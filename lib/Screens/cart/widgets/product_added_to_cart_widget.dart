@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grocceryplus/Screens/cart/cart_controller.dart';
+import 'package:grocceryplus/controller/cart_controller.dart';
 import 'package:grocceryplus/Screens/products/product_details_page.dart';
 import 'package:grocceryplus/models/products_model.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 
 class ProductAddedToCartWidget extends StatefulWidget {
   final ProductsModel product;
-  const ProductAddedToCartWidget({super.key, required this.product});
+  final int index;
+  const ProductAddedToCartWidget({
+    super.key,
+    required this.product,
+    required this.index,
+  });
 
   @override
   State<ProductAddedToCartWidget> createState() =>
@@ -21,14 +26,14 @@ class _ProductAddedToCartWidgetState extends State<ProductAddedToCartWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        //TODO Navigate to the product Clicked:
-        // final result = await Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => ProductDetailsPage(product: widget.product),
-        //   ),
-        // );
+      onTap: () {
+        //* Navigate to the product Clicked:
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailsPage(product: widget.product),
+          ),
+        );
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,7 +86,6 @@ class _ProductAddedToCartWidgetState extends State<ProductAddedToCartWidget> {
               color: Colors.pink.withValues(alpha: 0.15),
             ),
             child: Obx(() {
-              int quantity = cartController.cartItemList[widget.product] ?? 0;
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -89,19 +93,20 @@ class _ProductAddedToCartWidgetState extends State<ProductAddedToCartWidget> {
                   //* DEC
                   IconButton(
                     onPressed: () {
-                      cartController.decrementProductQuantity(widget.product);
+                      cartController.decrement(widget.index);
                     },
                     icon: Icon(Icons.remove, size: 20, color: Colors.pink),
                   ),
                   //* TEXT
                   Text(
-                    quantity.toString(),
+                    "${cartController.cartItemList.elementAt(widget.index).selectedQuantity.value}",
+                    //widget.product.selectedQuantity.toString(),
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                   //* INC
                   IconButton(
                     onPressed: () {
-                      cartController.incrementProductQuantity(widget.product);
+                      cartController.addtoCartOrIncrement(widget.product);
                     },
                     icon: Icon(Icons.add, size: 20, color: Colors.pink),
                   ),
@@ -113,9 +118,8 @@ class _ProductAddedToCartWidgetState extends State<ProductAddedToCartWidget> {
 
           //* Product Price
           Obx(() {
-            int quantity = cartController.cartItemList[widget.product] ?? 0;
             return Text(
-              "\$ ${(widget.product.Product_price * quantity).toStringAsFixed(2)}",
+              "\$ ${(widget.product.Product_price * widget.product.selectedQuantity.value).toStringAsFixed(2)}",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
             );
           }),

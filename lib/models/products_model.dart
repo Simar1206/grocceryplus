@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 
 class ProductsModel {
   final String Product_Category;
@@ -9,6 +10,7 @@ class ProductsModel {
   final String Product_description;
   final int Product_rating;
   final bool IsVeg;
+  RxInt selectedQuantity = 0.obs;
 
   ProductsModel({
     required this.Product_Category,
@@ -31,6 +33,7 @@ class ProductsModel {
       'Product_description': Product_description,
       'Product_rating': Product_rating,
       'IsVeg': IsVeg,
+      'selectedQuantity': selectedQuantity,
     };
   }
 

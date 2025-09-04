@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:grocceryplus/controller/cart_controller.dart';
 import 'package:grocceryplus/Screens/home/homepage.dart';
 import 'package:grocceryplus/Screens/products/product_details_page.dart';
 import 'package:grocceryplus/Screens/products/widgets/product_card_widget.dart';
@@ -21,6 +23,8 @@ class _ProductListScreenState extends State<ProductListScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<Offset> slideAnimation;
+
+  final CartController cartController = Get.find<CartController>();
 
   @override
   void initState() {
@@ -125,12 +129,7 @@ class _ProductListScreenState extends State<ProductListScreen>
                         final productModel = ProductsModel.fromMap(ProductData);
 
                         return ProductCardWidget(
-                          Product_Image: productModel.Product_Image,
-                          Product_name: "$index - ${productModel.Product_Name}",
-                          Product_price: productModel.Product_price,
-                          Product_rating: productModel.Product_rating,
-                          IsVeg: productModel.IsVeg,
-                          Product_quantity: productModel.Product_quantity,
+                          product: productModel,
                           onPress: () {
                             Navigator.push(
                               context,

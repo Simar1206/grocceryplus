@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grocceryplus/Screens/cart/cart_controller.dart';
+import 'package:grocceryplus/controller/cart_controller.dart';
 import 'package:grocceryplus/widgets/double_container_background_widget.dart';
 
 class PaymentInfoScreen extends StatelessWidget {

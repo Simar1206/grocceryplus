@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grocceryplus/Screens/cart/cart_controller.dart';
+import 'package:grocceryplus/controller/cart_controller.dart';
 import 'package:grocceryplus/Screens/cart/widgets/date_selector_widget.dart';
 import 'package:grocceryplus/Screens/cart/widgets/delivery_location_selector.dart';
 import 'package:grocceryplus/Screens/cart/widgets/payment_info_screen.dart';
@@ -15,15 +15,21 @@ import 'package:grocceryplus/widgets/action_button_widget.dart';
 import 'package:grocceryplus/widgets/bottom_navigation_widget.dart';
 
 class MyBag extends StatefulWidget {
-  MyBag({super.key});
+  const MyBag({super.key});
 
   @override
   State<MyBag> createState() => _MyBagState();
 }
 
 class _MyBagState extends State<MyBag> {
-  CartController cartController = Get.find<CartController>();
+  //*Getx controllers:
+  final CartController cartController = Get.find<CartController>();
+  final NavigationController navigationController =
+      Get.find<NavigationController>();
+
   bool isClicked = false;
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +68,7 @@ class _MyBagState extends State<MyBag> {
               SizedBox(height: 10),
 
               Obx(() {
-                final productsInCart = cartController.cartItemList.keys
+                final productsInCart = cartController.cartItemList
                     .toList();
 
                 if (productsInCart.isEmpty) {
@@ -80,7 +86,7 @@ class _MyBagState extends State<MyBag> {
                   itemCount: productsInCart.length,
                   itemBuilder: (context, index) {
                     final product = productsInCart[index];
-                    return ProductAddedToCartWidget(product: product);
+                    return ProductAddedToCartWidget(product: product,index: index,);
                   },
                 );
               }),
@@ -160,7 +166,7 @@ class _MyBagState extends State<MyBag> {
                             CircleAvatar(
                               backgroundColor: ConstColor.DarkGreenColor,
                               foregroundColor: ConstColor.WhiteColor,
-                              child: Text("\$", style: TextStyle(fontSize: 20),),
+                              child: Text("\$", style: TextStyle(fontSize: 20)),
                             ),
                             SizedBox(width: 14),
                             Expanded(

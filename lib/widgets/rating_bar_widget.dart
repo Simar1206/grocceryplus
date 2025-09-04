@@ -12,7 +12,7 @@ class RatingBarWidget extends StatelessWidget {
     return RatingBar(
       minRating: 1,
       maxRating: 5,
-
+      
       allowHalfRating: true,
       itemSize:Responsive.w(0.046),
       initialRating: Product_rating.toDouble(),
@@ -28,7 +28,7 @@ class RatingBarWidget extends StatelessWidget {
         ),
       ),
       onRatingUpdate: (rating) {
-        print(rating);
+        debugPrint('$rating');
       },
     );
   }

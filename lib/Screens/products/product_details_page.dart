@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:grocceryplus/Screens/products/product_list_screen.dart';
 import 'package:grocceryplus/Screens/products/widgets/additional_info_widget.dart';
@@ -89,14 +90,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               //*leading Icon
               leading: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductListScreen(
-                        Product_Category: widget.product.Product_Category,
-                      ),
-                    ),
-                  );
+                  Get.back();
+                  //Navigator.pop(context);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => ProductListScreen(
+                  //       Product_Category: widget.product.Product_Category,
+                  //     ),
+                  //   ),
+                  // );
                 },
                 child: Padding(
                   padding: EdgeInsets.all(Responsive.w(0.015)),
