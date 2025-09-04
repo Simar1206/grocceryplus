@@ -25,14 +25,12 @@ import 'package:grocceryplus/widgets/bottom_navigation_widget.dart';
 class AddToBagButtonWidget extends StatelessWidget {
   final String buttonText;
   final IconData? icon;
-  //final VoidCallback onPress;
   final ProductsModel product;
 
   final NavigationController navigationController =
       Get.find<NavigationController>();
 
   AddToBagButtonWidget({
-    //required this.onPress,
     required this.buttonText,
     required this.icon,
     required this.product,
@@ -114,8 +112,6 @@ class AddToBagButtonWidget extends StatelessWidget {
               )
             : GestureDetector(
                 onTap: () {
-                  //onPress();
-                  //navigationController.selectedValue.value = 2;
                   cartController.addtoCartOrIncrement(product);
                 },
                 child: Padding(

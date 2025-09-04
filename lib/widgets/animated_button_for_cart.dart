@@ -8,25 +8,6 @@ import 'package:grocceryplus/theme/const/responsive.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/bottom_navigation_widget.dart';
 
-// class AnimatedButtonController extends GetxController {
-//   final currentValue = 1.obs;
-//   void Inc() => currentValue.value++;
-//   void Dec() {
-//     if (currentValue.value > 1) {
-//       print(currentValue.value);
-//       currentValue.value--;
-//     } else {
-//       isPressed.value = false;
-//     }
-//   }
-
-//   final isPressed = false.obs;
-
-//   void PushButton() {
-//     isPressed.value = true;
-//   }
-// }
-
 class AnimatedButtonForCart extends StatefulWidget {
   final ProductsModel product;
   const AnimatedButtonForCart({super.key, required this.product});

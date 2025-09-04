@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocceryplus/Screens/payment/payment_options_screen.dart';
 import 'package:grocceryplus/controller/cart_controller.dart';
 import 'package:grocceryplus/Screens/cart/widgets/date_selector_widget.dart';
 import 'package:grocceryplus/Screens/cart/widgets/delivery_location_selector.dart';
 import 'package:grocceryplus/Screens/cart/widgets/payment_info_screen.dart';
 import 'package:grocceryplus/Screens/cart/widgets/product_added_to_cart_widget.dart';
-import 'package:grocceryplus/Screens/cart/widgets/select_date_and_time_widget.dart';
 import 'package:grocceryplus/Screens/home/homepage.dart';
-import 'package:grocceryplus/Screens/products/widgets/discription_widget.dart';
-import 'package:grocceryplus/Screens/products/widgets/highlights_widget.dart';
 import 'package:grocceryplus/Screens/products/widgets/rounded_icon_widget.dart';
 import 'package:grocceryplus/theme/const_color.dart';
 import 'package:grocceryplus/widgets/action_button_widget.dart';
 import 'package:grocceryplus/widgets/bottom_navigation_widget.dart';
+import 'package:grocceryplus/widgets/reactive_button_for_payment.dart';
 
 class MyBag extends StatefulWidget {
   const MyBag({super.key});
@@ -29,12 +28,43 @@ class _MyBagState extends State<MyBag> {
 
   bool isClicked = false;
 
-  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    navigationController.selectedIndex.value = 2;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    navigationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: BottomNavigationWidget(),
+      bottomSheet: cartController.cartItemList.isNotEmpty
+          ? Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: ReactiveButtonForPayment(
+                onPress: () {
+                  cartController.cartItemList.isNotEmpty
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PaymentOptionsScreen(),
+                          ),
+                        )
+                      : Get.snackbar("Add items to the Cart First", "");
+                },
+                icon: null,
+              ),
+            )
+          : const SizedBox.shrink(),
+      bottomNavigationBar: BottomNavigationWidget(),
+
       appBar: AppBar(
         elevation: 5,
         shape: RoundedRectangleBorder(
@@ -68,26 +98,64 @@ class _MyBagState extends State<MyBag> {
               SizedBox(height: 10),
 
               Obx(() {
-                final productsInCart = cartController.cartItemList
-                    .toList();
+                final productsInCart = cartController.cartItemList.toList();
 
                 if (productsInCart.isEmpty) {
-                  return Center(
-                    child: Text(
-                      'Your cart is empty!',
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
-                    ),
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart_outlined,
+                        size: 24,
+                        color: Colors.pink,
+                      ),
+
+                      SizedBox(width: 10),
+                      Text(
+                        'Your cart is empty!',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
+                    ],
                   );
                 }
 
-                return ListView.builder(
+                return ListView.separated(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: productsInCart.length,
                   itemBuilder: (context, index) {
                     final product = productsInCart[index];
-                    return ProductAddedToCartWidget(product: product,index: index,);
+                    return Dismissible(
+                      //TODO change name to unique ID
+                      key: Key(product.Product_Name),
+
+                      direction: DismissDirection.endToStart,
+
+                      background: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Icon(
+                          Icons.delete_outline_rounded,
+                          color: Colors.white,
+                        ),
+                      ),
+
+                      onDismissed: (direction) {
+                        cartController.removeFromCart(product);
+                      },
+
+                      child: ProductAddedToCartWidget(
+                        product: product,
+                        index: index,
+                      ),
+                    );
                   },
+                  separatorBuilder: (context, index) => SizedBox(height: 15),
                 );
               }),
 
@@ -95,10 +163,10 @@ class _MyBagState extends State<MyBag> {
 
               //* Add More Button
               ActionButtonWidgetWOpadding(
-                onPress: () {
+                onPress: () async {
                   //TODO Navigate to the Homepage:
 
-                  Navigator.push(
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Homepage()),
                   );
@@ -107,18 +175,6 @@ class _MyBagState extends State<MyBag> {
                 icon: null,
               ),
 
-              // ActionButtonWidget(
-              //   onPress: () {
-              //     //TODO Navigate to the Homepage:
-
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => Homepage()),
-              //     );
-              //   },
-              //   ButtonText: "Add More Products",
-              //   icon: null,
-              // ),
               SizedBox(height: 48),
 
               //*Expected Date and Time:
@@ -192,7 +248,7 @@ class _MyBagState extends State<MyBag> {
               ),
 
               //*end sizeBOx
-              SizedBox(height: 500),
+              SizedBox(height: 100),
             ],
           ),
         ),

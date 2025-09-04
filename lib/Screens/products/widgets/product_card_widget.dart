@@ -116,14 +116,6 @@ class ProductCardWidget extends StatelessWidget {
             //button
             AddToBagButtonWidget(
               product: product,
-              // onPress: () {
-              //   product.selectedQuantity = product.selectedQuantity + 1;
-              //   cartController.addtoCartOrIncrement(product);
-              //   // Navigator.push(
-              //   //   context,
-              //   //   MaterialPageRoute(builder: (context) => MyBag()),
-              //   // );
-              // },
               buttonText: 'Add to Bag',
               icon: Icons.shopping_bag,
             ),

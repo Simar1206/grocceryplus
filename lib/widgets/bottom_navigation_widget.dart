@@ -14,7 +14,7 @@ class BottomNavigationWidget extends StatelessWidget {
   final NavigationController navigationController =
       Get.find<NavigationController>();
 
-  final List<Widget> ScreensList = [
+  final List<Widget> screensList = [
     Homepage(),
     CategoryPage(),
     MyBag(),
@@ -41,10 +41,13 @@ class BottomNavigationWidget extends StatelessWidget {
               horizontal: Responsive.w(0.04),
               vertical: Responsive.w(0.025),
             ),
-            selectedIndex: navigationController.selectedValue.value,
+            selectedIndex: navigationController.selectedIndex.value,
             onTabChange: (index) {
-              navigationController.selectedValue.value = index;
-              Get.off(ScreensList[index]);
+              navigationController.selectedIndex.value = index;
+              Get.off(screensList[index]);
+              print(
+                " the index for bottom nav bar is: ${navigationController.selectedIndex.value}",
+              );
             },
             tabs: const [
               GButton(
@@ -80,5 +83,5 @@ class BottomNavigationWidget extends StatelessWidget {
 }
 
 class NavigationController extends GetxController {
-  final Rx<int> selectedValue = 0.obs;
+  final selectedIndex = 0.obs;
 }

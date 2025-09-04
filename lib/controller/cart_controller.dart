@@ -35,13 +35,13 @@ class CartController extends GetxController {
 
   // //*Remove from Cart
 
-  // void removeFromCart(ProductsModel products) {
-  //   try {
-  //     cartItemList.remove(products);
-  //   } catch (e) {
-  //     Get.snackbar('Exception Occured Cannot Perform Remove from Cart', '$e');
-  //   }
-  // }
+  void removeFromCart(ProductsModel products) {
+    try {
+      cartItemList.remove(products);
+    } catch (e) {
+      Get.snackbar('Exception Occured Cannot Perform Remove from Cart', '$e');
+    }
+  }
 
   // //*Inc Quantity
 
@@ -77,10 +77,14 @@ class CartController extends GetxController {
   double get totalCost {
     double totalCost = 0.0;
     cartItemList.forEach((product) {
-      totalCost +=
-          (product.Product_price * product.selectedQuantity.value);
+      totalCost += (product.Product_price * product.selectedQuantity.value);
     });
-    return totalCost + 50; //*delivery charge
+    if (totalCost < 1) {
+      return 0.0;
+    } else {
+      return totalCost + 50;
+    }
+    //return totalCost + 50; //*delivery charge
   }
 
   //*Get Total Quanitity

@@ -18,10 +18,13 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  NavigationController navigationController = Get.find<NavigationController>();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    navigationController.selectedIndex.value = 0;
     UploadCategoryToFireStore();
   }
 
@@ -40,6 +43,13 @@ class _HomepageState extends State<Homepage> {
     setState(() {
       _currentHeaderIndex = index;
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    navigationController.dispose();
+    super.dispose();
   }
 
   @override

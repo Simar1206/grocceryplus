@@ -36,7 +36,7 @@ class PaymentInfoScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                 ),
                 Text(
-                  "\$50",
+                  cartController.cartItemList.isNotEmpty ? "\$50.0" : "\$0.0",
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                 ),
               ],
